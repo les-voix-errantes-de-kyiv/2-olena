@@ -1,10 +1,10 @@
 <script lang="ts">
-    import {createScene} from "$lib/three";
-    import {loadModel, placeModel} from "$lib/functions";
-    import {onMount} from "svelte";
-    import type {GLTF} from "three/examples/jsm/loaders/GLTFLoader.js";
+    import { loadModel, placeModel } from "$lib/functions";
+    import { createScene } from "$lib/three";
+    import { onMount } from "svelte";
+    import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-    let canvas;
+    let canvas; 
 
     onMount(() => {
         createScene(canvas)
