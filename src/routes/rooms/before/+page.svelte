@@ -1,37 +1,48 @@
 <script lang="ts">
-    import { createMapScene } from "$lib/room-before";
-    import { onMount } from "svelte";
+	import { createRoomBeforeScene } from '$lib/rooms';
+	import { onMount } from 'svelte';
 
-    let canvas: HTMLCanvasElement;
+	let canvas: HTMLCanvasElement;
 
-    onMount(() => {
-        createMapScene(canvas)
-    })
+	onMount(() => {
+		createRoomBeforeScene(canvas);
+	});
 </script>
-<body>
-    <canvas class="webgl" id="three" bind:this={canvas}></canvas>
 
+<body>
+	<a class="change-page" href="/rooms/after">See after</a>
+
+	<canvas class="webgl" id="three" bind:this={canvas}></canvas>
 </body>
 
-
 <style>
-    
-    *{
-        margin: 0;
-        padding: 0;
-    }
+	* {
+		margin: 0;
+		padding: 0;
+	}
 
-    html,
-    body
-    {
-        overflow: hidden;
-    }
+	html,
+	body {
+		overflow: hidden;
+	}
 
-    .webgl
-    {
-        position: fixed;
-        top: 0;
-        left: 0;
-        outline: none;
-    }
+	.webgl {
+		position: fixed;
+		top: 0;
+		left: 0;
+		outline: none;
+	}
+
+	a {
+		position: absolute;
+		bottom: 1%;
+		right: 2%;
+		z-index: 100;
+		color: black;
+		border-radius: 10px;
+		background: white;
+		font-size: 16px;
+		text-decoration: none;
+		padding: 1rem;
+	}
 </style>
