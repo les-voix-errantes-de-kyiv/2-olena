@@ -82,7 +82,7 @@ export class MapScene {
 		this.controls.minPolarAngle = 0.5;
 		this.controls.maxPolarAngle = Math.PI / 2 - 0.2;
 
-		this.renderer.setClearColor('#0F223B');
+		this.renderer.setClearColor('#EFEFEF');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		this.renderer.shadowMap.enabled = true;
@@ -94,11 +94,8 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		const ambientLight = new THREE.AmbientLight('#b9d5ff', 1);
+		const ambientLight = new THREE.AmbientLight('#FFFFFF', 1);
 		this.scene.add(ambientLight);
-
-		const fog = new THREE.Fog('#262837', 1, 5);
-		this.scene.fog = fog;
 
 		this.map = (await this.gltfLoader.loadAsync('/assets/glb/europe-map/EUROPE_MAP.gltf')).scene;
 		this.scene.add(this.map);
@@ -114,13 +111,10 @@ export class MapScene {
 			const delta = oldElapsedTime - elapsedTime;
 			oldElapsedTime = elapsedTime;
 
-			// Update controls
 			this.controls.update();
 
-			// Render
 			this.renderer.render(this.scene, this.camera);
 
-			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
 		};
 
