@@ -5,19 +5,18 @@
 		canPreviousWith,
 		createMapScene,
 		isStepIndexValid,
-		lookAtStep,
-		steps
+		steps,
+		type MapScene
 	} from '$lib/map/index';
 	import { onMount } from 'svelte';
-	import type { OrbitControls } from 'three/examples/jsm/Addons.js';
 
-	let controls: OrbitControls;
+	let mapScene: MapScene;
 	let canvas: HTMLCanvasElement;
 
 	let stepIndex = 0;
 	$: step = steps[stepIndex];
-	$: if (controls) {
-		lookAtStep(controls, step);
+	$: if (mapScene) {
+		mapScene.lookAtStep(step);
 	}
 
 	$: canPrevious = canPreviousWith(stepIndex);
@@ -59,8 +58,7 @@
 	};
 
 	onMount(async () => {
-		const mapScene = await createMapScene(canvas);
-		controls = mapScene.controls;
+		mapScene = await createMapScene(canvas);
 
 		lookAtStepFromUrl();
 	});

@@ -4,7 +4,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { Position, Step } from './steps';
 
-export const createMapScene = async (canvas: HTMLCanvasElement) => {
+type LookAtStepFn = (step: Step) => void;
+
+export type MapScene = {
+	controls: OrbitControls;
+	camera: THREE.PerspectiveCamera;
+	scene: THREE.Scene;
+	renderer: THREE.Renderer;
+	clock: THREE.Clock;
+	lookAtStep: LookAtStepFn;
+};
+
+export const createMapScene = async (canvas: HTMLCanvasElement): Promise<MapScene> => {
 	const gltfLoader = new GLTFLoader();
 	// Scene
 	const scene = new THREE.Scene();
@@ -27,7 +38,8 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	scene.fog = fog;
 
 	// objects
-	const map = (await gltfLoader.loadAsync('/assets/glb/europe.glb')).scene;
+	const map = (await gltfLoader.loadAsync('/assets/glb/europe-map/EUROPE_MAP.gltf')).scene;
+
 	scene.add(map);
 
 	/**
@@ -116,34 +128,39 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 
 	tick();
 
+	const getCameraPositionForTarget = (position: Position): Position => {
+		return { x: position.x + 0, y: position.y + 2, z: position.z + 1 };
+	};
+
+	const lookAtStep = (step: Step) => {
+		const target = map.children.find((child) => child.name === step.targetName);
+		if (!target) {
+			return;
+		}
+		const targetPosition = target.position;
+		const cameraPosition = getCameraPositionForTarget(targetPosition);
+
+		gsap.to(controls.target, {
+			duration: 1,
+			x: targetPosition.x,
+			y: targetPosition.y,
+			z: targetPosition.z
+		});
+
+		gsap.to(controls.object.position, {
+			duration: 1,
+			x: cameraPosition.x,
+			y: cameraPosition.y,
+			z: cameraPosition.z
+		});
+	};
+
 	return {
 		controls,
 		camera,
 		scene,
 		renderer,
-		clock
+		clock,
+		lookAtStep
 	};
-};
-
-const getCameraPositionForTarget = (position: Position): Position => {
-	return { x: position.x + 0, y: position.y + 2, z: position.z + 1 };
-};
-
-export const lookAtStep = (controls: OrbitControls, step: Step) => {
-	const targetPosition = step.position;
-	const cameraPosition = getCameraPositionForTarget(targetPosition);
-
-	gsap.to(controls.target, {
-		duration: 1,
-		x: targetPosition.x,
-		y: targetPosition.y,
-		z: targetPosition.z
-	});
-
-	gsap.to(controls.object.position, {
-		duration: 1,
-		x: cameraPosition.x,
-		y: cameraPosition.y,
-		z: cameraPosition.z
-	});
 };
