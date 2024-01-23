@@ -17,7 +17,7 @@
 		<button on:click={roomScene.showAfterRoom}> apres </button>
 	</section>
 
-	<canvas class="invisible" id="three-before" bind:this={canvas}></canvas>
+	<canvas id="three-before" bind:this={canvas}></canvas>
 </body>
 
 <style>
