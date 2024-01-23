@@ -1,2 +1,2 @@
 export * from '$lib/map/mapScene';
-export * from '$lib/map/step';
+export * from '$lib/map/steps';

@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import type { Position, Step } from './step';
+import type { Position, Step } from './steps';
 
 export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	const gltfLoader = new GLTFLoader();
@@ -23,7 +23,7 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	/**
 	 * Fog
 	 */
-	const fog = new THREE.Fog('#262837', 1, 15);
+	const fog = new THREE.Fog('#262837', 1, 5);
 	scene.fog = fog;
 
 	// objects

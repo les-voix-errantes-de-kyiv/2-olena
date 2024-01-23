@@ -15,8 +15,9 @@
 	let canvas: HTMLCanvasElement;
 
 	let stepIndex = 0;
+	$: step = steps[stepIndex];
 	$: if (controls) {
-		lookAtStep(controls, steps[stepIndex]);
+		lookAtStep(controls, step);
 	}
 
 	$: canPrevious = canPreviousWith(stepIndex);
@@ -81,7 +82,7 @@
 			Suivant
 		</button>
 		<a class="p-4 col-span-3 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
-			Découvrir
+			Voir "{step.title}"
 		</a>
 	</nav>
 </main>
