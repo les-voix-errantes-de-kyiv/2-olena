@@ -16,10 +16,10 @@ export const createRoomScene = async (canvas: HTMLCanvasElement): Promise<RoomSc
 	const gltfLoader = new GLTFLoader();
 	// Scene
 	const scene = new THREE.Scene();
+	// LIGHT
 
 	const ambientLight = new THREE.AmbientLight('#ffffff', 0.01);
 
-	// LIGHT
 	const sunLight = new THREE.DirectionalLight('#FFC371', 1.5);
 	sunLight.position.set(0.5, 2, -2.5);
 

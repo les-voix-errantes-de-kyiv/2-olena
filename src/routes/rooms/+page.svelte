@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { createRoomScene, type RoomScene } from '$lib/rooms';
+	import { RoomScene } from '$lib/rooms/roomsScene';
 	import { onMount } from 'svelte';
-	import { get } from 'svelte/store';
-
-	let isBeforeRoomActive: boolean = true;
 
 	let canvas: HTMLCanvasElement;
 	let roomScene: RoomScene;
+
 	onMount(async () => {
-		// createRoomScene(canvas);
-		roomScene = await createRoomScene(canvas);
+		roomScene = new RoomScene({ canvas });
+		await roomScene.init();
 	});
 </script>
 

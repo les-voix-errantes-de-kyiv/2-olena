@@ -24,6 +24,7 @@ export class MapScene {
 	readonly camera: THREE.PerspectiveCamera;
 	readonly scene: THREE.Scene;
 	readonly renderer: THREE.WebGLRenderer;
+
 	private map?: MapSceneMapObject;
 
 	constructor({ canvas }: MapSceneParams) {
