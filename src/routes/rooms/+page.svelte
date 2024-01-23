@@ -14,13 +14,12 @@
 </script>
 
 <body>
-	<button on:click={roomScene.showBeforeRoom}> avant </button>
-
-	<button on:click={roomScene.showAfterRoom}> apres </button>
-
-	<section>
-		<canvas class="invisible" id="three-before" bind:this={canvas}></canvas>
+	<section class="container__button">
+		<button on:click={roomScene.showBeforeRoom}> avant </button>
+		<button on:click={roomScene.showAfterRoom}> apres </button>
 	</section>
+
+	<canvas class="invisible" id="three-before" bind:this={canvas}></canvas>
 </body>
 
 <style>
@@ -33,17 +32,22 @@
 	body {
 		overflow: hidden;
 	}
-	.change-page {
+
+	.container__button {
 		position: absolute;
-		top: 1%;
+		bottom: 1%;
 		right: 2%;
 		z-index: 100;
+	}
+
+	.container__button button {
+		border: none;
 		color: black;
 		border-radius: 10px;
 		background: white;
 		font-size: 16px;
 		text-decoration: none;
-		padding: 1rem;
+		padding: 0.5rem 2rem;
 	}
 
 	/* @media screen and (min-width: 900px) {

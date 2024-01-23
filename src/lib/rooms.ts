@@ -12,7 +12,6 @@ export type RoomScene = {
 	showAfterRoom: () => void;
 };
 
-//mettre une autre propos avec la variable dans la page svelte ?????
 export const createRoomScene = async (canvas: HTMLCanvasElement): Promise<RoomScene> => {
 	const gltfLoader = new GLTFLoader();
 	// Scene
@@ -34,13 +33,6 @@ export const createRoomScene = async (canvas: HTMLCanvasElement): Promise<RoomSc
 
 	const candleLight = new THREE.PointLight(0xff9000, 0.2);
 	candleLight.position.set(0.05, 0.6, -0.32);
-
-	// AXES
-	const axesHelper = new THREE.AxesHelper(5);
-	scene.add(axesHelper);
-
-	const gridHelper = new THREE.GridHelper(5, 5);
-	scene.add(gridHelper);
 
 	// OBJECTS
 	const room = (await gltfLoader.loadAsync('/assets/gltf/room/piecev1.gltf')).scene;
@@ -67,7 +59,7 @@ export const createRoomScene = async (canvas: HTMLCanvasElement): Promise<RoomSc
 	});
 
 	// CAMERA
-	const camera = new THREE.PerspectiveCamera(80, sizes.width / sizes.height, 0.1, 100);
+	const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height, 0.1, 100);
 	camera.position.set(0.75, 2, 0.75);
 
 	camera.lookAt(-3, 3, 0);
