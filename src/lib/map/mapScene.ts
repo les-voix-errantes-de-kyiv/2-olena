@@ -1,6 +1,8 @@
+import gsap from 'gsap';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import type { Position, Step } from './step';
 
 export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	const gltfLoader = new GLTFLoader();
@@ -18,11 +20,6 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.12);
 	scene.add(ambientLight);
 
-	// Directional light
-	const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.26);
-	moonLight.position.set(4, 5, -2);
-	scene.add(moonLight);
-
 	/**
 	 * Fog
 	 */
@@ -32,6 +29,7 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	// objects
 	const map = (await gltfLoader.loadAsync('/assets/glb/europe.glb')).scene;
 	scene.add(map);
+
 	/**
 	 * Sizes
 	 */
@@ -60,13 +58,24 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	// Base camera
 	const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
 	camera.position.x = 4;
-	camera.position.y = 2;
-	camera.position.z = 5;
+	camera.position.y = 4;
+	camera.position.z = 4;
 	scene.add(camera);
+
+	// const axesHelper = new THREE.AxesHelper(10);
+	// scene.add(axesHelper);
+
+	// const gridCases = 22;
+	// const gridHelper = new THREE.GridHelper(gridCases, gridCases);
+	// scene.add(gridHelper);
 
 	// Controls
 	const controls = new OrbitControls(camera, canvas);
 	controls.enableDamping = true;
+	controls.enableZoom = false;
+	controls.enablePan = false;
+	controls.minPolarAngle = 0.5;
+	controls.maxPolarAngle = Math.PI / 2 - 0.2;
 
 	/**
 	 * Renderer
@@ -74,7 +83,7 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	const renderer = new THREE.WebGLRenderer({
 		canvas: canvas
 	});
-	renderer.setClearColor('#262837');
+	renderer.setClearColor('#0F223B');
 	renderer.setSize(sizes.width, sizes.height);
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -88,8 +97,12 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	 */
 	const clock = new THREE.Clock();
 
+	let oldElapsedTime = 0;
 	const tick = () => {
 		const elapsedTime = clock.getElapsedTime();
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const delta = oldElapsedTime - elapsedTime;
+		oldElapsedTime = elapsedTime;
 
 		// Update controls
 		controls.update();
@@ -102,4 +115,35 @@ export const createMapScene = async (canvas: HTMLCanvasElement) => {
 	};
 
 	tick();
+
+	return {
+		controls,
+		camera,
+		scene,
+		renderer,
+		clock
+	};
+};
+
+const getCameraPositionForTarget = (position: Position): Position => {
+	return { x: position.x + 0, y: position.y + 2, z: position.z + 1 };
+};
+
+export const lookAtStep = (controls: OrbitControls, step: Step) => {
+	const targetPosition = step.position;
+	const cameraPosition = getCameraPositionForTarget(targetPosition);
+
+	gsap.to(controls.target, {
+		duration: 1,
+		x: targetPosition.x,
+		y: targetPosition.y,
+		z: targetPosition.z
+	});
+
+	gsap.to(controls.object.position, {
+		duration: 1,
+		x: cameraPosition.x,
+		y: cameraPosition.y,
+		z: cameraPosition.z
+	});
 };
