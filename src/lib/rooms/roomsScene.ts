@@ -17,10 +17,12 @@ export class RoomScene {
 	readonly canvas: HTMLCanvasElement;
 	private readonly gltfLoader: GLTFLoader;
 	sizes: Sizes;
+
 	readonly controls: OrbitControls;
 	readonly camera: THREE.PerspectiveCamera;
 	readonly scene: THREE.Scene;
 	readonly renderer: THREE.WebGLRenderer;
+
 	private groupBeforeRoom?: THREE.Group<THREE.Object3DEventMap>;
 	private groupAfterRoom?: THREE.Group<THREE.Object3DEventMap>;
 
@@ -137,13 +139,19 @@ export class RoomScene {
 	}
 
 	showBeforeRoom() {
-		if (!this.groupBeforeRoom || !this.groupAfterRoom) return;
+		if (!this.groupBeforeRoom || !this.groupAfterRoom) {
+			return;
+		}
+
 		this.groupBeforeRoom.visible = true;
 		this.groupAfterRoom.visible = false;
 	}
 
 	showAfterRoom = () => {
-		if (!this.groupBeforeRoom || !this.groupAfterRoom) return;
+		if (!this.groupBeforeRoom || !this.groupAfterRoom) {
+			return;
+		}
+
 		this.groupBeforeRoom.visible = false;
 		this.groupAfterRoom.visible = true;
 	};

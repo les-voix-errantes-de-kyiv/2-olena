@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { RoomScene } from '$lib/rooms/roomsScene';
+	import { RoomScene } from '$lib/rooms/index';
 	import { onMount } from 'svelte';
 
 	let canvas: HTMLCanvasElement;
@@ -13,8 +13,8 @@
 
 <body>
 	<section class="container__button">
-		<button on:click={roomScene.showBeforeRoom}> avant </button>
-		<button on:click={roomScene.showAfterRoom}> apres </button>
+		<button on:click={() => roomScene.showBeforeRoom()}> avant </button>
+		<button on:click={() => roomScene.showAfterRoom()}> apres </button>
 	</section>
 
 	<canvas id="three-before" bind:this={canvas}></canvas>
