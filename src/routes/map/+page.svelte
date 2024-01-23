@@ -1,13 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import {
-		canNextWith,
-		canPreviousWith,
-		createMapScene,
-		isStepIndexValid,
-		steps,
-		type MapScene
-	} from '$lib/map/index';
+	import { MapScene, canNextWith, canPreviousWith, isStepIndexValid, steps } from '$lib/map/index';
 	import { onMount } from 'svelte';
 
 	let mapScene: MapScene;
@@ -58,7 +51,9 @@
 	};
 
 	onMount(async () => {
-		mapScene = await createMapScene(canvas);
+		mapScene = new MapScene({ canvas });
+
+		await mapScene.init();
 
 		lookAtStepFromUrl();
 	});
