@@ -86,6 +86,7 @@ export class MapScene {
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		this.renderer.shadowMap.enabled = true;
+		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 		await this.setupObjects();
 
@@ -93,7 +94,7 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.12);
+		const ambientLight = new THREE.AmbientLight('#b9d5ff', 1);
 		this.scene.add(ambientLight);
 
 		const fog = new THREE.Fog('#262837', 1, 5);
