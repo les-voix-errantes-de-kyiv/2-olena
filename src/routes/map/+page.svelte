@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { createMapScene, lookAtStep, steps } from '$lib/map/index';
+	import {
+		canNextWith,
+		canPreviousWith,
+		createMapScene,
+		isStepIndexValid,
+		lookAtStep,
+		steps
+	} from '$lib/map/index';
 	import { onMount } from 'svelte';
 	import type { OrbitControls } from 'three/examples/jsm/Addons.js';
 
@@ -11,18 +18,6 @@
 	$: if (controls) {
 		lookAtStep(controls, steps[stepIndex]);
 	}
-
-	const canPreviousWith = (stepIndex: number): boolean => {
-		return isStepIndexValid(stepIndex - 1);
-	};
-
-	const canNextWith = (stepIndex: number): boolean => {
-		return isStepIndexValid(stepIndex + 1);
-	};
-
-	const isStepIndexValid = (stepIndex: number): boolean => {
-		return stepIndex >= 0 && stepIndex < steps.length;
-	};
 
 	$: canPrevious = canPreviousWith(stepIndex);
 	$: canNext = canNextWith(stepIndex);
@@ -79,11 +74,14 @@
 		<button
 			disabled={!canPrevious}
 			class="p-4 bg-white disabled:bg-gray-400"
-			on:click={previousStep}>Previous</button
+			on:click={previousStep}>Précédent</button
 		>
-		<span class="col-start-2 p-4 bg-white">{stepIndex + 1} / {steps.length}</span>
+		<span class="col-start-2 p-4 text-white">{stepIndex + 1} / {steps.length}</span>
 		<button disabled={!canNext} class="p-4 bg-white disabled:bg-gray-400" on:click={nextStep}>
-			Next
+			Suivant
 		</button>
+		<a class="p-4 col-span-3 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
+			Découvrir
+		</a>
 	</nav>
 </main>

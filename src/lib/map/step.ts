@@ -26,3 +26,15 @@ export const steps: Array<Step> = [
 		position: { x: 3.5, y: 0, z: -2 }
 	}
 ];
+
+export const isStepIndexValid = (stepIndex: number): boolean => {
+	return stepIndex >= 0 && stepIndex < steps.length;
+};
+
+export const canPreviousWith = (stepIndex: number): boolean => {
+	return isStepIndexValid(stepIndex - 1);
+};
+
+export const canNextWith = (stepIndex: number): boolean => {
+	return isStepIndexValid(stepIndex + 1);
+};
