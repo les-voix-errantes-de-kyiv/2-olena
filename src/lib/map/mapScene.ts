@@ -1,10 +1,13 @@
+import { enableShadows } from '$lib/utils/gltf';
 import gsap from 'gsap';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { type Position, type Step } from './steps';
+import { steps, type Position, type Step } from './steps';
 
-export type MapSceneMapObject = THREE.Group<THREE.Object3DEventMap>;
+export type MapObject = THREE.Group<THREE.Object3DEventMap>;
+export type PinObject = THREE.Object3D<THREE.Object3DEventMap>;
+export type TrajectObjet = THREE.Object3D<THREE.Object3DEventMap>;
 
 export type MapSceneParams = {
 	canvas: HTMLCanvasElement;
@@ -24,7 +27,10 @@ export class MapScene {
 	readonly camera: THREE.PerspectiveCamera;
 	readonly scene: THREE.Scene;
 	readonly renderer: THREE.WebGLRenderer;
-	private map?: MapSceneMapObject;
+
+	private map?: MapObject;
+	private pinsObjects: Map<string, TrajectObjet | undefined>;
+	private trajectsObjects: Map<string, PinObject | undefined>;
 
 	constructor({ canvas }: MapSceneParams) {
 		this.canvas = canvas;
@@ -60,15 +66,9 @@ export class MapScene {
 			this.renderer.setSize(this.sizes.width, this.sizes.height);
 			this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		});
-	}
 
-	addHelpers() {
-		const axesHelper = new THREE.AxesHelper(10);
-		this.scene.add(axesHelper);
-
-		const gridCases = 22;
-		const gridHelper = new THREE.GridHelper(gridCases, gridCases);
-		this.scene.add(gridHelper);
+		this.trajectsObjects = new Map();
+		this.pinsObjects = new Map();
 	}
 
 	async init() {
@@ -82,7 +82,7 @@ export class MapScene {
 		this.controls.minPolarAngle = 0.5;
 		this.controls.maxPolarAngle = Math.PI / 2 - 0.2;
 
-		this.renderer.setClearColor('#EFEFEF');
+		this.renderer.setClearColor('#DDDDDD');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		this.renderer.shadowMap.enabled = true;
@@ -94,11 +94,51 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		const ambientLight = new THREE.AmbientLight('#FFFFFF', 1);
-		this.scene.add(ambientLight);
-
-		this.map = (await this.gltfLoader.loadAsync('/assets/glb/europe-map/EUROPE_MAP.gltf')).scene;
+		this.map = enableShadows(
+			(await this.gltfLoader.loadAsync('/assets/glb/europe-map/EUROPE_MAP.gltf')).scene
+		);
 		this.scene.add(this.map);
+
+		this.trajectsObjects = new Map();
+		this.pinsObjects = new Map();
+		steps.map((step, index) => {
+			// the first step will not have a traject
+			// traject objects are named in reversed order
+			const trajectObjectName = (steps.length - index).toString();
+			this.trajectsObjects.set(step.targetName, this.getObjectByName(trajectObjectName));
+
+			this.pinsObjects.set(step.targetName, this.getObjectByName(step.targetName));
+		});
+
+		this.addSpotLight(1.77, 8.4, 3.66);
+		this.addSpotLight(-2.25, 8.4, -2.76);
+		this.addSpotLight(-4.83, 8.4, 4.56);
+	}
+
+	private getObjectByName(targetName: string) {
+		if (!this.map) {
+			return;
+		}
+
+		return this.map.children.find((child) => child.name === targetName);
+	}
+
+	private addSpotLight(x: number, y: number, z: number) {
+		const spotLight = new THREE.SpotLight(0xffffff, 100);
+		this.scene.add(spotLight);
+		this.scene.add(spotLight.target);
+
+		spotLight.position.set(x, y, z);
+		spotLight.target.position.set(x, 0, z);
+
+		spotLight.castShadow = true;
+
+		spotLight.shadow.mapSize.width = 1024;
+		spotLight.shadow.mapSize.height = 1024;
+
+		spotLight.shadow.camera.near = 500;
+		spotLight.shadow.camera.far = 4000;
+		spotLight.shadow.camera.fov = 30;
 	}
 
 	private animate() {
@@ -138,6 +178,9 @@ export class MapScene {
 		const targetPosition = target.position;
 		const cameraPosition = this.getCameraPositionForTarget(targetPosition);
 
+		this.showTrajectsUntilStep(step);
+		this.showPinsUntilStep(step);
+
 		gsap.to(this.controls.target, {
 			duration: 1,
 			x: targetPosition.x,
@@ -151,5 +194,80 @@ export class MapScene {
 			y: cameraPosition.y,
 			z: cameraPosition.z
 		});
+	}
+
+	private showTrajectsUntilStep(step: Step) {
+		let stepHasTraject = false;
+
+		// hide all trajects
+		for (const [key, traject] of this.trajectsObjects.entries()) {
+			if (!traject) {
+				continue;
+			}
+
+			if (key === step.targetName) {
+				stepHasTraject = true;
+			}
+
+			traject.visible = false;
+		}
+
+		if (!stepHasTraject) {
+			return;
+		}
+
+		for (const [key, traject] of this.trajectsObjects.entries()) {
+			if (!traject) {
+				continue;
+			}
+
+			traject.visible = true;
+
+			if (key === step.targetName) {
+				return;
+			}
+		}
+	}
+
+	private showPinsUntilStep(step: Step) {
+		let stepHasTraject = false;
+
+		// hide all trajects
+		for (const [key, traject] of this.pinsObjects.entries()) {
+			if (!traject) {
+				continue;
+			}
+
+			if (key === step.targetName) {
+				stepHasTraject = true;
+			}
+
+			traject.visible = false;
+		}
+
+		if (!stepHasTraject) {
+			return;
+		}
+
+		for (const [key, traject] of this.pinsObjects.entries()) {
+			if (!traject) {
+				continue;
+			}
+
+			traject.visible = true;
+
+			if (key === step.targetName) {
+				return;
+			}
+		}
+	}
+
+	addHelpers() {
+		const axesHelper = new THREE.AxesHelper(10);
+		this.scene.add(axesHelper);
+
+		const gridCases = 22;
+		const gridHelper = new THREE.GridHelper(gridCases, gridCases);
+		this.scene.add(gridHelper);
 	}
 }
