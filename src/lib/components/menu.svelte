@@ -38,8 +38,11 @@
 
 				{#each steps as step, index}
 					<a
-						href={`/map?step=${index}`}
-						on:click={() => (isMenuOpen = false)}
+						href="#"
+						on:click={() => {
+							isMenuOpen = false;
+							window.location.href = `/map?step=${index}`;
+						}}
 						class="text-2xl font-text mt-2 -mb-2 hover:underline"
 					>
 						{step.menuName}
