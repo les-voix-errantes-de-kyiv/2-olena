@@ -1,6 +1,8 @@
 <script lang="ts">
 	import ChevronRight from '$lib/components/icons/mini/chevron-right.svelte';
 	import { isStepIndexValid, steps } from '$lib/map';
+	import { goto } from '$app/navigation';
+
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -26,9 +28,15 @@
 		{/each}
 	</div>
 
+<main class="container relative flex flex-col py-8">
+	<h1 class="mb-4 text-3xl">{data.step.title}</h1>
+	{#each data.step.lines as line}
+		<p class="mb-2">{line}</p>
+	{/each}
 	{#if isNextStep}
 		<a
 			class="px-4 py-2 col-span-full bg-purple border-2 border-purple text-white text-center"
+			class="p-4 text-center bg-white border disabled:bg-gray-400"
 			href={`/map?step=${nextStepIndex}`}
 		>
 			Étape suivante: "{steps[nextStepIndex].title}"
@@ -37,8 +45,14 @@
 		<a
 			class="px-4 py-2 col-span-full bg-purple border-2 border-purple text-white text-center"
 			href={`/map?step=${data.stepIndex}`}
+		<button
+			on:click={() => {
+				localStorage.setItem('isXPFinished', 'true');
+				goto('/rooms');
+			}}
+			class="p-4 text-center bg-white border disabled:bg-gray-400"
 		>
-			Retour à la carte
-		</a>
+			Retour à la maison
+		</button>
 	{/if}
 </main>

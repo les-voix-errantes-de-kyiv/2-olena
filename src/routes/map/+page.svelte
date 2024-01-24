@@ -91,5 +91,21 @@
 				</a>
 			</nav>
 		</div>
+		<nav
+			class="fixed grid items-center justify-center w-full grid-cols-3 gap-2 px-4 text-center bottom-2"
+		>
+			<button
+				disabled={!canPrevious}
+				class="p-4 bg-white disabled:bg-gray-400"
+				on:click={previousStep}>Précédent</button
+			>
+			<span class="col-start-2 p-4 text-white">{stepIndex + 1} / {steps.length}</span>
+			<button disabled={!canNext} class="p-4 bg-white disabled:bg-gray-400" on:click={nextStep}>
+				Suivant
+			</button>
+			<a class="col-span-3 p-4 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
+				Voir "{step.title}"
+			</a>
+		</nav>
 	{/if}
 </main>

@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
 	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 </script>
 
 <section
-	class="container py-4 flex flex-col justify-between h-full align-bottom text-blue font-text"
+	class="container flex flex-col justify-between h-full py-4 align-bottom text-blue font-text"
 >
 	<img class="absolute" src="/assets/images/petites_billes.svg" alt="" />
 
@@ -21,8 +20,8 @@
 		</p>
 	</div>
 
-	<Button url="/rooms"
+	<a class="btn-primary" href="/rooms"
 		>Commencer
 		<ArrowRight />
-	</Button>
+	</a>
 </section>
