@@ -52,9 +52,6 @@
 			</div>
 		{/if}
 	</section>
-	<div class="absolute w-full px-4 bottom-2">
-		<a class="btn-primary" href="/map">Commencer le périple <ArrowRight /> </a>
-	</div>
 
 	<canvas id="three-before" bind:this={canvas}></canvas>
 </container>
