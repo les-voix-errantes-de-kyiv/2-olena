@@ -18,5 +18,5 @@
 		</p>
 	</div>
 
-	<Button url="">Commencer</Button>
+	<Button url="/rooms">Commencer</Button>
 </section>
