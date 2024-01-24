@@ -6,9 +6,9 @@
 	let mapScene: MapScene;
 	let canvas: HTMLCanvasElement;
 
-	let stepIndex = 0;
-	$: step = steps[stepIndex];
-	$: if (mapScene) {
+	let stepIndex = -1;
+	$: step = isStepIndexValid(stepIndex) ? steps[stepIndex] : null;
+	$: if (mapScene && step) {
 		mapScene.lookAtStep(step);
 	}
 
@@ -62,20 +62,22 @@
 <main class="relative">
 	<canvas id="three" bind:this={canvas}></canvas>
 
-	<nav
-		class="fixed grid items-center justify-center w-full grid-cols-3 gap-2 px-4 text-center bottom-2"
-	>
-		<button
-			disabled={!canPrevious}
-			class="p-4 bg-white disabled:bg-gray-400"
-			on:click={previousStep}>Précédent</button
+	{#if step}
+		<nav
+			class="fixed bottom-2 w-full grid grid-cols-3 gap-2 px-4 items-center justify-center text-center"
 		>
-		<span class="col-start-2 p-4 text-white">{stepIndex + 1} / {steps.length}</span>
-		<button disabled={!canNext} class="p-4 bg-white disabled:bg-gray-400" on:click={nextStep}>
-			Suivant
-		</button>
-		<a class="col-span-3 p-4 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
-			Voir "{step.title}"
-		</a>
-	</nav>
+			<button
+				disabled={!canPrevious}
+				class="p-4 bg-white disabled:bg-gray-400"
+				on:click={previousStep}>Précédent</button
+			>
+			<span class="col-start-2 p-4 text-white">{stepIndex + 1} / {steps.length}</span>
+			<button disabled={!canNext} class="p-4 bg-white disabled:bg-gray-400" on:click={nextStep}>
+				Suivant
+			</button>
+			<a class="p-4 col-span-3 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
+				Voir "{step.title}"
+			</a>
+		</nav>
+	{/if}
 </main>
