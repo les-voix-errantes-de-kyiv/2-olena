@@ -83,8 +83,6 @@ export class RoomScene {
 		await this.setupObjects();
 
 		this.animate();
-
-		this.showBeforeRoom();
 	}
 
 	private async setupObjects() {
@@ -142,6 +140,8 @@ export class RoomScene {
 		if (!this.groupBeforeRoom || !this.groupAfterRoom) {
 			return;
 		}
+
+		this.isShowingBefore = true;
 
 		this.groupBeforeRoom.visible = true;
 		this.groupAfterRoom.visible = false;

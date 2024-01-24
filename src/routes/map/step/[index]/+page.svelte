@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { isStepIndexValid, steps } from '$lib/map';
+	import { goto } from '$app/navigation';
+
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -8,24 +10,27 @@
 	$: isNextStep = isStepIndexValid(nextStepIndex);
 </script>
 
-<main class="relative flex flex-col container py-8">
-	<h1 class="text-3xl mb-4">{data.step.title}</h1>
+<main class="container relative flex flex-col py-8">
+	<h1 class="mb-4 text-3xl">{data.step.title}</h1>
 	{#each data.step.lines as line}
 		<p class="mb-2">{line}</p>
 	{/each}
 	{#if isNextStep}
 		<a
-			class="border text-center p-4 bg-white disabled:bg-gray-400"
+			class="p-4 text-center bg-white border disabled:bg-gray-400"
 			href={`/map?step=${nextStepIndex}`}
 		>
 			Étape suivante: "{steps[nextStepIndex].title}"
 		</a>
 	{:else}
-		<a
-			class="border text-center p-4 bg-white disabled:bg-gray-400"
-			href={`/map?step=${data.stepIndex}`}
+		<button
+			on:click={() => {
+				localStorage.setItem('isXPFinished', 'true');
+				goto('/rooms');
+			}}
+			class="p-4 text-center bg-white border disabled:bg-gray-400"
 		>
-			Retour à la carte
-		</a>
+			Retour à la maison
+		</button>
 	{/if}
 </main>

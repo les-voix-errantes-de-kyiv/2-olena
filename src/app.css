@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+	.btn-primary {
+		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center text-white font-title bg-purple md:w-fit md:px-12 hover:bg-purple-dark;
+	}
+	.btn-secondary {
+		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center bg-white border-2 text-purple font-title md:w-fit md:px-12 border-purple hover:bg-purple hover:text-white;
+	}
+}
+
 @font-face {
 	font-family: Gotham-Black;
 	src: url('fonts/Gotham-Black.otf') format('opentype');
