@@ -16,3 +16,8 @@
 	font-family: GothamMedium;
 	src: url('fonts/GothamMedium.ttf') format('truetype');
 }
+
+html,
+body {
+	height: 100%;
+}
