@@ -1,7 +1,6 @@
 <script lang="ts">
-	import Button from '../lib/components/Button.svelte';
-	import ArrowRight from '../lib/components/icons/mini/arrow-right.svelte';
-	import Arrow from '../lib/components/icons/mini/arrow-right.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 </script>
 
 <section class="flex flex-col justify-between h-full align-bottom text-blue font-text">
