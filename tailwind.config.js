@@ -2,12 +2,6 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		fontSize: {
-			base: '16px',
-			'2xl': '24px',
-			'4xl': '36px',
-			'6xl': '60px',
-		  },
 		fontFamily: {
 			'text': 'GothamBook',
 			'title': 'Gotham-Black',
