@@ -27,7 +27,7 @@
 				Chez Olena
 			</a>
 
-			<div class="flex flex-col items-center justify-center gap-2">
+			<div class="flex flex-col gap-2 justify-center items-center">
 				<a
 					href="/map"
 					on:click={() => (isMenuOpen = false)}
@@ -44,6 +44,7 @@
 							window.location.href = `/map?step=${index}`;
 						}}
 						class="mt-2 -mb-2 text-2xl font-text hover:underline"
+
 					>
 						{step.menuName}
 					</a>
