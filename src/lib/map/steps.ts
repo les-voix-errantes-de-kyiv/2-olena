@@ -2,6 +2,7 @@ export type Position = { x: number; y: number; z: number };
 export type Step = {
 	position: Position;
 	targetName: string;
+	menuName: string;
 	title: string;
 	lines: Array<string>;
 };
@@ -10,6 +11,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 9, y: 0, z: -3 },
 		targetName: 'dnipro',
+		menuName: 'Départ',
 		title: 'Départ : Ukraine, Dnipro',
 		lines: [
 			'Trajet Dnipro - Vinnytsia : ',
@@ -19,6 +21,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 8, y: 0, z: -3 },
 		targetName: 'vinnytsia',
+		menuName: 'Vinnytsia',
 		title: '1ère étape : Vinnytsia',
 		lines: [
 			'Il a été difficile de trouver des chambres parce qu’il y avait beaucoup de personnes qui ont quitté leur maison en même temps. C’était une petite ville avec de grandes associations juives. Elle et sa famille arrivent à trouver refuge dans une ancienne maison ouverte aux populations juives.',
@@ -28,6 +31,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 7, y: 0, z: -2 },
 		targetName: 'oujhorod',
+		menuName: 'Oujhorod',
 		title: '2ème étape : Oujhorod',
 		lines: [
 			"Arrivé à Oujhorod, Olena a appelé son ami de Bordeaux pour savoir s'il allait pouvoir les héberger. Il lui a aussi donné l’adresse de son cousin à Budapest pour pouvoir s’y arrêter un moment. Olena et sa famille sont quasiment restées une semaine à Oujhorod pour réparer la voiture avec laquelle ils allaient continuer le trajet. Il a également été nécessaire d’obtenir le passeport de son fils. Mais en arrivant à la frontière, ils ont découvert que de nombreuses personnes qui y travaillaient faisaient plus facilement passer les personnes à cause de la guerre qui avait récemment éclaté.",
@@ -37,6 +41,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 6, y: 0, z: -2 },
 		targetName: 'budapest',
+		menuName: 'Budapest',
 		title: '3ème étape : Budapest',
 		lines: [
 			'Budapest a été la 3ᵉ ville où ils se sont arrêtés et la 1ʳᵉ à l’étranger. La personne qui les logeait leur a proposé de rester un peu plus pour se reposer, pour réfléchir. Mais elle a refusé, elle était très inquiète parce que le temps passait très vite et elle ne pouvait pas s’arrêter en si bon chemin. Son courage était au maximum. Elle voulait profiter de cette motivation tant qu’elle était présente.'
@@ -45,6 +50,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 5, y: 0, z: -2 },
 		targetName: 'verone',
+		menuName: 'Vérone',
 		title: '4ème étape : Vérone',
 		lines: [
 			'Son ami de Bordeaux a trouvé un hôtel en Italie pour Olena et sa famille. Mais quand ils se sont rendus sur place, l’administrateur les a refusés, car ils ne pouvaient pas prouver qu’ils n’avaient pas la covid. Elle a alors essayé un autre hôtel et a, sur les conseils de son ami, joué sur la pitié en appuyant sur la présence d’enfants et d’une personne âgée. Ça s’est passé plus facilement et ils ont pu avoir une chambre. Elle a compris qu’ils allaient devoir vite partir, car elle n’avait pas trouvé les gens très gentils et ne pouvaient pas risquer de ne pas trouver de logement sur place.',
@@ -54,6 +60,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 4, y: 0, z: -2 },
 		targetName: 'marseille',
+		menuName: 'Marseille',
 		title: '5ème étape : Marseille',
 		lines: [
 			'Près de Marseille, sa voiture est tombée en panne parce que des câbles n’étaient pas bien branchés. La batterie était morte. Il fallait trouver des clés pour les refixer. Elle ne pouvait pas demander d’aide à cause de la langue. Elle a acheté les clés et elle a réparé la voiture. Il commençait à faire nuit, son fils l’éclairait avec son portable.'
@@ -62,6 +69,7 @@ export const steps: Array<Step> = [
 	{
 		position: { x: 3.5, y: 0, z: -2 },
 		targetName: 'bordeaux',
+		menuName: 'Arrivée',
 		title: 'Arrivée : Bordeaux',
 		lines: ['23h, 7 mars']
 	}
