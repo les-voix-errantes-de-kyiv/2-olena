@@ -95,7 +95,7 @@ export class MapScene {
 
 	private async setupObjects() {
 		this.map = enableShadows(
-			(await this.gltfLoader.loadAsync('/assets/glb/europe-map/EUROPE_MAP.gltf')).scene
+			(await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.gltf')).scene
 		);
 		this.scene.add(this.map);
 
