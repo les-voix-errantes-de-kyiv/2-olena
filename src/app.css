@@ -4,10 +4,23 @@
 
 @layer components {
 	.btn-primary {
-		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center text-white font-title bg-purple md:w-fit md:px-12 hover:bg-purple-dark;
+		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center text-white font-title bg-purple md:w-fit md:px-12;
 	}
+	.btn-primary:hover:not(:disabled) {
+		@apply bg-purple-dark;
+	}
+	.btn-primary:disabled {
+		@apply bg-gray border-gray;
+	}
+
 	.btn-secondary {
-		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center bg-white border-2 text-purple font-title md:w-fit md:px-12 border-purple hover:bg-purple hover:text-white;
+		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center bg-white border-2 text-purple font-title md:w-fit md:px-12 border-purple;
+	}
+	.btn-secondary:hover:not(:disabled) {
+		@apply bg-purple text-white;
+	}
+	.btn-secondary:disabled {
+		@apply border-gray text-gray;
 	}
 }
 

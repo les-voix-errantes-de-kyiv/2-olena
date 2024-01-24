@@ -141,8 +141,6 @@ export class RoomScene {
 			return;
 		}
 
-		this.isShowingBefore = true;
-
 		this.groupBeforeRoom.visible = true;
 		this.groupAfterRoom.visible = false;
 	}
