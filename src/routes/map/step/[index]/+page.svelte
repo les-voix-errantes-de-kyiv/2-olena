@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import ChevronRight from '$lib/components/icons/mini/chevron-right.svelte';
 	import { isStepIndexValid, steps } from '$lib/map';
-	import { goto } from '$app/navigation';
 
 	import type { PageData } from './$types';
 
@@ -29,10 +29,7 @@
 	</div>
 
 	{#if isNextStep}
-		<a
-			class="p-4 text-center bg-white border disabled:bg-gray-400"
-			href={`/map?step=${nextStepIndex}`}
-		>
+		<a class="btn-primary" href={`/map?step=${nextStepIndex}`}>
 			Étape suivante: "{steps[nextStepIndex].title}"
 		</a>
 	{:else}
@@ -41,7 +38,7 @@
 				localStorage.setItem('isXPFinished', 'true');
 				goto('/rooms');
 			}}
-			class="px-4 py-2 text-center text-white border-2 col-span-full bg-purple border-purple"
+			class="btn-primary"
 		>
 			Retour à la maison
 		</button>

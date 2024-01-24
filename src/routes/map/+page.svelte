@@ -77,24 +77,13 @@
 	</div>
 
 	{#if step}
-		<div class="fixed bottom-0 left-0 w-full py-4 bg-white text-blue">
+		<div class="fixed bottom-0 left-0 w-full py-2">
 			<nav class="container grid items-center justify-center grid-cols-2 gap-2 text-center">
-				<button
-					disabled={!canPrevious}
-					class="w-full px-4 py-2 border-2 border-purple text-purple disabled:border-gray disabled:text-gray"
-					on:click={previousStep}>Précédent</button
+				<button disabled={!canPrevious} class="btn-secondary" on:click={previousStep}
+					>Précédent</button
 				>
-				<button
-					disabled={!canNext}
-					class="w-full px-4 py-2 border-2 border-purple text-purple disabled:border-gray disabled:text-gray"
-					on:click={nextStep}
-				>
-					Suivant
-				</button>
-				<a
-					class="px-4 py-2 text-white border-2 col-span-full bg-purple border-purple"
-					href={`/map/step/${stepIndex}`}
-				>
+				<button disabled={!canNext} class="btn-secondary" on:click={nextStep}> Suivant </button>
+				<a class="col-span-2 btn-primary" href={`/map/step/${stepIndex}`}>
 					Voir "{step.title}"
 				</a>
 			</nav>
