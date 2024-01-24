@@ -70,22 +70,34 @@
 	<canvas id="three" bind:this={canvas}></canvas>
 	<Loader {isLoading} {progress} />
 
+	<div class="fixed top-0 left-0 w-full py-4 bg-white text-blue">
+		<header class="container">
+			<h1 class="text-4xl font-title">Le périple</h1>
+		</header>
+	</div>
+
 	{#if step}
-		<nav
-			class="fixed grid items-center justify-center w-full grid-cols-3 gap-2 px-4 text-center bottom-2"
-		>
-			<button
-				disabled={!canPrevious}
-				class="p-4 bg-white disabled:bg-gray-400"
-				on:click={previousStep}>Précédent</button
-			>
-			<span class="col-start-2 p-4 text-white">{stepIndex + 1} / {steps.length}</span>
-			<button disabled={!canNext} class="p-4 bg-white disabled:bg-gray-400" on:click={nextStep}>
-				Suivant
-			</button>
-			<a class="col-span-3 p-4 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
-				Voir "{step.title}"
-			</a>
-		</nav>
+		<div class="fixed bottom-0 left-0 w-full py-4 bg-white text-blue">
+			<nav class="container grid items-center justify-center grid-cols-2 gap-2 text-center">
+				<button
+					disabled={!canPrevious}
+					class="w-full px-4 py-2 border-2 border-purple text-purple disabled:border-gray disabled:text-gray"
+					on:click={previousStep}>Précédent</button
+				>
+				<button
+					disabled={!canNext}
+					class="w-full px-4 py-2 border-2 border-purple text-purple disabled:border-gray disabled:text-gray"
+					on:click={nextStep}
+				>
+					Suivant
+				</button>
+				<a
+					class="px-4 py-2 text-white border-2 col-span-full bg-purple border-purple"
+					href={`/map/step/${stepIndex}`}
+				>
+					Voir "{step.title}"
+				</a>
+			</nav>
+		</div>
 	{/if}
 </main>
