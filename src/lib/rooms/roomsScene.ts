@@ -83,13 +83,6 @@ export class RoomScene {
 		await this.setupObjects();
 
 		this.animate();
-
-		const isXPFinished = localStorage.getItem('isXPFinished');
-		if (isXPFinished === 'true') {
-			this.showAfterRoom();
-		} else {
-			this.showBeforeRoom();
-		}
 	}
 
 	private async setupObjects() {
@@ -147,6 +140,8 @@ export class RoomScene {
 		if (!this.groupBeforeRoom || !this.groupAfterRoom) {
 			return;
 		}
+
+		this.isShowingBefore = true;
 
 		this.groupBeforeRoom.visible = true;
 		this.groupAfterRoom.visible = false;
