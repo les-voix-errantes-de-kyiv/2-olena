@@ -5,23 +5,40 @@ export default {
 		extend: {
 		},
 		fontFamily: {
-			'text': ['GothamBook', 'ui-sans-serif', 'system-ui',' sans-serif', "'Apple Color Emoji'", "'Segoe UI Emoji'", "'Segoe UI Symbol'", "'Noto Color Emoji'"],
-			'title': ['Gotham-Black', 'ui-sans-serif', 'system-ui',' sans-serif', "'Apple Color Emoji'", "'Segoe UI Emoji'", "'Segoe UI Symbol'", "'Noto Color Emoji'"],
-
+			text: [
+				'GothamBook',
+				'ui-sans-serif',
+				'system-ui',
+				' sans-serif',
+				"'Apple Color Emoji'",
+				"'Segoe UI Emoji'",
+				"'Segoe UI Symbol'",
+				"'Noto Color Emoji'"
+			],
+			title: [
+				'Gotham-Black',
+				'ui-sans-serif',
+				'system-ui',
+				' sans-serif',
+				"'Apple Color Emoji'",
+				"'Segoe UI Emoji'",
+				"'Segoe UI Symbol'",
+				"'Noto Color Emoji'"
+			]
 		},
 		colors: {
-			'turquoise': '#00AEC7',				
-			'yellow': '#FCD56C',
-			'purple': {
+			turquoise: '#00AEC7',
+			yellow: '#FCD56C',
+			purple: {
 				DEFAULT: '#A880DA',
-				dark: '#916CBF',
-			  },
-			'blue': '#023785',
-			'white': '#FFFFFF',
-			'black': '#1E1E1E',
-			'orange': '#FF8A35',
-		  },
-		
+				dark: '#916CBF'
+			},
+			blue: '#023785',
+			white: '#FFFFFF',
+			black: '#1E1E1E',
+			orange: '#FF8A35',
+			gray: '#888888'
+		},
 		container: {
 			center: true,
 			padding: {

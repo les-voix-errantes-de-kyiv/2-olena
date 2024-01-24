@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { isStepIndexValid, steps } from '$lib/map';
 	import { goto } from '$app/navigation';
+	import ChevronRight from '$lib/components/icons/mini/chevron-right.svelte';
+	import { isStepIndexValid, steps } from '$lib/map';
 
 	import type { PageData } from './$types';
 
@@ -11,15 +12,24 @@
 </script>
 
 <main class="container relative flex flex-col py-8">
-	<h1 class="mb-4 text-3xl">{data.step.title}</h1>
-	{#each data.step.lines as line}
-		<p class="mb-2">{line}</p>
-	{/each}
+	<nav class="mb-4 flex gap-1 flex-nowrap items-center font-title text-purple">
+		<a href="/" class="underline">Accueil</a>
+		<ChevronRight />
+		<a href="/map" class="underline">Le périple</a>
+		<ChevronRight />
+		<span>Étape {data.stepIndex + 1}</span>
+	</nav>
+
+	<h1 class="text-4xl text-blue font-title mb-4">{data.step.title}</h1>
+
+	<div class="mb-4 space-y-2 text-blue">
+		{#each data.step.lines as line}
+			<p>{line}</p>
+		{/each}
+	</div>
+
 	{#if isNextStep}
-		<a
-			class="p-4 text-center bg-white border disabled:bg-gray-400"
-			href={`/map?step=${nextStepIndex}`}
-		>
+		<a class="btn-primary" href={`/map?step=${nextStepIndex}`}>
 			Étape suivante: "{steps[nextStepIndex].title}"
 		</a>
 	{:else}
@@ -28,7 +38,7 @@
 				localStorage.setItem('isXPFinished', 'true');
 				goto('/rooms');
 			}}
-			class="p-4 text-center bg-white border disabled:bg-gray-400"
+			class="btn-primary"
 		>
 			Retour à la maison
 		</button>
