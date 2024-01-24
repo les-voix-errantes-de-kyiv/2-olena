@@ -9,7 +9,7 @@
 {#if isMenuOpen}
 	<button
 		on:click={() => (isMenuOpen = false)}
-		class="fixed top-4 right-2 z-20 padding-4 border border-white rounded-full p-2 text-white hover:bg-white hover:text-purple"
+		class="fixed top-4 right-2 z-20 padding-4 border-2 border-white rounded-full p-2 text-white hover:bg-white hover:text-purple"
 	>
 		<IconX />
 	</button>
@@ -62,7 +62,7 @@
 {:else}
 	<button
 		on:click={() => (isMenuOpen = true)}
-		class="fixed top-4 right-2 z-20 padding-4 border border-purple rounded-full p-2 text-purple hover:bg-purple hover:text-white"
+		class="fixed top-4 right-2 z-20 padding-4 border-2 border-purple rounded-full p-2 text-purple hover:bg-purple hover:text-white"
 	>
 		<IconBar3 />
 	</button>
