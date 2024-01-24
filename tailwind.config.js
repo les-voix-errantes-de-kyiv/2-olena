@@ -3,8 +3,9 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		fontFamily: {
-			'text': 'GothamBook',
-			'title': 'Gotham-Black',
+			'text': ['GothamBook', 'ui-sans-serif', 'system-ui',' sans-serif', "'Apple Color Emoji'", "'Segoe UI Emoji'", "'Segoe UI Symbol'", "'Noto Color Emoji'"],
+			'title': ['Gotham-Black', 'ui-sans-serif', 'system-ui',' sans-serif', "'Apple Color Emoji'", "'Segoe UI Emoji'", "'Segoe UI Symbol'", "'Noto Color Emoji'"],
+
 		},
 		extend: {
 			colors: {
