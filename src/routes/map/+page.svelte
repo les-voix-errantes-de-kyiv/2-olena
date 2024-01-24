@@ -64,7 +64,7 @@
 
 	{#if step}
 		<nav
-			class="fixed bottom-2 w-full grid grid-cols-3 gap-2 px-4 items-center justify-center text-center"
+			class="fixed grid items-center justify-center w-full grid-cols-3 gap-2 px-4 text-center bottom-2"
 		>
 			<button
 				disabled={!canPrevious}
@@ -75,7 +75,7 @@
 			<button disabled={!canNext} class="p-4 bg-white disabled:bg-gray-400" on:click={nextStep}>
 				Suivant
 			</button>
-			<a class="p-4 col-span-3 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
+			<a class="col-span-3 p-4 bg-white disabled:bg-gray-400" href={`/map/step/${stepIndex}`}>
 				Voir "{step.title}"
 			</a>
 		</nav>

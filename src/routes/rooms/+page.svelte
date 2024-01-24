@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { RoomScene } from '$lib/rooms/index';
 	import { onMount } from 'svelte';
+	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 
 	let canvas: HTMLCanvasElement;
 	let roomScene: RoomScene;
+
+	const isXPFinished = localStorage.getItem('isXPFinished');
+	console.log(isXPFinished);
+	// localStorage.clear();
 
 	onMount(async () => {
 		roomScene = new RoomScene({ canvas });
@@ -11,53 +16,20 @@
 	});
 </script>
 
-<body>
-	<section class="container__button">
-		<button on:click={() => roomScene.showBeforeRoom()}> avant </button>
-		<button on:click={() => roomScene.showAfterRoom()}> apres </button>
+<container class="">
+	<header class="flex items-center h-16 bg-white text-blue">
+		<h1 class="ml-4 text-4xl font-title">Chez Olena</h1>
+	</header>
+
+	<section class="absolute flex justify-between w-full gap-4 px-4 bottom-16">
+		{#if isXPFinished === 'true'}
+			<button class="btn-secondary" on:click={() => roomScene.showBeforeRoom()}> Avant </button>
+			<button class="btn-secondary" on:click={() => roomScene.showAfterRoom()}> Après </button>
+		{/if}
 	</section>
+	<div class="absolute w-full px-4 bottom-2">
+		<a class="btn-primary" href="/map">Commencer le périple <ArrowRight /> </a>
+	</div>
 
 	<canvas id="three-before" bind:this={canvas}></canvas>
-</body>
-
-<style>
-	* {
-		margin: 0;
-		padding: 0;
-	}
-
-	html,
-	body {
-		overflow: hidden;
-	}
-
-	.container__button {
-		position: absolute;
-		bottom: 1%;
-		right: 2%;
-		z-index: 100;
-	}
-
-	.container__button button {
-		border: none;
-		color: black;
-		border-radius: 10px;
-		background: white;
-		font-size: 16px;
-		text-decoration: none;
-		padding: 0.5rem 2rem;
-	}
-
-	/* @media screen and (min-width: 900px) {
-		section {
-			display: flex;
-			gap: 1rem;
-		}
-		.webgl1 {
-			max-width: 50vw;
-		}
-		.webgl2 {
-			max-width: 50vw;
-		}
-	} */
-</style>
+</container>

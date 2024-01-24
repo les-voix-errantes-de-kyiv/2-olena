@@ -84,7 +84,12 @@ export class RoomScene {
 
 		this.animate();
 
-		this.showBeforeRoom();
+		const isXPFinished = localStorage.getItem('isXPFinished');
+		if (isXPFinished === 'true') {
+			this.showAfterRoom();
+		} else {
+			this.showBeforeRoom();
+		}
 	}
 
 	private async setupObjects() {

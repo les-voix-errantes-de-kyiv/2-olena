@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
 	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 </script>
 
@@ -19,8 +18,8 @@
 		</p>
 	</div>
 
-	<Button url="/rooms"
+	<a class="btn-primary" href="/rooms"
 		>Commencer
 		<ArrowRight />
-	</Button>
+	</a>
 </section>
