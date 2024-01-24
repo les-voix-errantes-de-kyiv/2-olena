@@ -2,7 +2,9 @@
 	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 </script>
 
-<section class="flex flex-col justify-between h-full align-bottom text-blue font-text">
+<section
+	class="container flex flex-col justify-between h-full py-4 align-bottom text-blue font-text"
+>
 	<img class="absolute" src="/assets/images/petites_billes.svg" alt="" />
 
 	<!-- to format section in the right way (justify between) -->

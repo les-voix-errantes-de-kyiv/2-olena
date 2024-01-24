@@ -12,6 +12,7 @@ export default {
 				'turquoise': '#00AEC7',				
 				'yellow': '#FCD56C',
 				'purple': '#A880DA',
+				'purple-dark': "#916CBF",
 				'blue': '#023785',
 				'white': '#FFFFFF',
 				'black': '#1E1E1E',
