@@ -84,26 +84,27 @@ export class RoomScene {
 		this.controls.enablePan = false;
 		onProgress(60);
 
-		this.renderer.setClearColor('#102642');
+		this.renderer.setClearColor('#010D1C');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		onProgress(80);
 
 		this.renderer.shadowMap.enabled = true;
 
-		await this.setupObjects();
+		await this.setupObjects(progress => onProgress(80 + progress * 0.2));
 		onProgress(100);
 
 		this.animate();
 	}
 
-	private async setupObjects() {
+	private async setupObjects(onProgress: (progress: number) => void) {
 		const ambientLight = new THREE.AmbientLight('#ffffff', 0.7);
 
 		const sunLight = new THREE.DirectionalLight('#FFC371', 1.5);
 		sunLight.position.set(0.5, 2, -2.5);
 
 		const ambientLightAfter = new THREE.AmbientLight('#4C6561', 1);
+		
 
 		const sunLightAfter = new THREE.DirectionalLight('#B9C9CB', 2);
 		sunLightAfter.position.set(0.5, 2, -2.5);
@@ -123,6 +124,9 @@ export class RoomScene {
 		meshRight.position.set(2, 1, 0.5);
 		meshLeft.position.set(0.7, 1, 1.92);
 		this.scene.add(meshRight, meshLeft);
+
+		onProgress(15);
+
 
 		//BACKGROUND
 
@@ -145,6 +149,9 @@ export class RoomScene {
 		meshBackgroundBefore.position.set(0, 1, -3.9);
 		this.scene.add(meshBackgroundBefore);
 
+		onProgress(40);
+
+
 		//GROUPS
 
 		this.beforeRoomLights = new THREE.Group();
@@ -155,12 +162,17 @@ export class RoomScene {
 		this.afterRoomLights.add(ambientLightAfter, sunLightAfter, meshBackgroundAfter);
 		this.scene.add(this.afterRoomLights);
 
+		onProgress(50);
+
+
 		const dracoLoader = new DRACOLoader();
 		dracoLoader.setDecoderPath('/draco/');
 		dracoLoader.preload();
 		this.gltfLoader.setDRACOLoader(dracoLoader);
 
 		this.room = (await this.gltfLoader.loadAsync('/assets/room.glb')).scene;
+		onProgress(99);
+
 
 		this.beforeRoom = this.room.children[0];
 		this.afterRoom = this.room.children[1];
