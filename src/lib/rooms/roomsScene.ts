@@ -167,8 +167,6 @@ export class RoomScene {
 
 		this.scene.add(this.room);
 
-		console.log(this.beforeRoom, this.afterRoom);
-
 		this.room.scale.set(2, 2, 2);
 	}
 
