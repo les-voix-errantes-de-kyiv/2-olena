@@ -3,7 +3,7 @@
 </script>
 
 <section
-	class="container flex flex-col justify-between h-full py-4 align-bottom text-blue font-text"
+	class="container flex h-full flex-col justify-between py-4 align-bottom font-text text-blue"
 >
 	<img class="absolute" src="/assets/images/petites_billes.svg" alt="" />
 
@@ -11,7 +11,7 @@
 	<div></div>
 
 	<div class="flex flex-col gap-4">
-		<h1 class="text-4xl font-title">Les 3600 km <br /> d’Olena</h1>
+		<h1 class="font-title text-4xl">Les 3600 km <br /> d’Olena</h1>
 		<h2 class="text-2xl">Une narration interactive</h2>
 		<p class="text-base">
 			Arrivé à Oujhorod, Olena a appelé son ami de Bordeaux pour savoir s'il allait pouvoir les

@@ -91,7 +91,7 @@ export class RoomScene {
 
 		this.renderer.shadowMap.enabled = true;
 
-		await this.setupObjects(progress => onProgress(80 + progress * 0.2));
+		await this.setupObjects((progress) => onProgress(80 + progress * 0.2));
 		onProgress(100);
 
 		this.animate();
@@ -104,7 +104,6 @@ export class RoomScene {
 		sunLight.position.set(0.5, 2, -2.5);
 
 		const ambientLightAfter = new THREE.AmbientLight('#4C6561', 1);
-		
 
 		const sunLightAfter = new THREE.DirectionalLight('#B9C9CB', 2);
 		sunLightAfter.position.set(0.5, 2, -2.5);
@@ -126,7 +125,6 @@ export class RoomScene {
 		this.scene.add(meshRight, meshLeft);
 
 		onProgress(15);
-
 
 		//BACKGROUND
 
@@ -151,7 +149,6 @@ export class RoomScene {
 
 		onProgress(40);
 
-
 		//GROUPS
 
 		this.beforeRoomLights = new THREE.Group();
@@ -164,7 +161,6 @@ export class RoomScene {
 
 		onProgress(50);
 
-
 		const dracoLoader = new DRACOLoader();
 		dracoLoader.setDecoderPath('/draco/');
 		dracoLoader.preload();
@@ -172,7 +168,6 @@ export class RoomScene {
 
 		this.room = (await this.gltfLoader.loadAsync('/assets/room.glb')).scene;
 		onProgress(99);
-
 
 		this.beforeRoom = this.room.children[0];
 		this.afterRoom = this.room.children[1];

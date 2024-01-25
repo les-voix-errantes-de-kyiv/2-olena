@@ -1,7 +1,7 @@
-<div class="py-8 container text-blue">
+<div class="container py-8 text-blue">
 	<main class="space-y-8">
 		<div class="space-y-2">
-			<h1 class="text-4xl font-title">Crédits</h1>
+			<h1 class="font-title text-4xl">Crédits</h1>
 
 			<p>
 				Projet réalisé dans le cadre de l’atelier « Les voix errantes de Kyiv : invisibles,
@@ -11,7 +11,7 @@
 				Encadré par Oscar Motta, ce projet a eu lieu dans le cadre du
 				<a
 					href="https://mmibordeaux.com"
-					class="text-purple font-title underline"
+					class="font-title text-purple underline"
 					target="_blank"
 					rel="noreferrer"
 				>
@@ -22,12 +22,12 @@
 		</div>
 
 		<div>
-			<h2 class="text-2xl font-text">Membres du projet</h2>
+			<h2 class="font-text text-2xl">Membres du projet</h2>
 			<ul>
 				<li>
 					Arthaud PROUST -
 					<a
-						class="underline text-purple font-title"
+						class="font-title text-purple underline"
 						href="https://www.linkedin.com/in/arthaud-proust/"
 						target="_blank"
 						rel="noreferrer"
@@ -38,7 +38,7 @@
 				<li>
 					Emma GUILLAUME -
 					<a
-						class="underline text-purple font-title"
+						class="font-title text-purple underline"
 						href="https://www.linkedin.com/in/emma-guillaume-7122a6202/"
 						target="_blank"
 						rel="noreferrer"
@@ -49,7 +49,7 @@
 				<li>
 					Florian SEZER -
 					<a
-						class="underline text-purple font-title"
+						class="font-title text-purple underline"
 						href="https://www.linkedin.com/in/florian-sezer-346613223/"
 						target="_blank"
 						rel="noreferrer"
@@ -60,7 +60,7 @@
 				<li>
 					Quentin WEGERA -
 					<a
-						class="underline text-purple font-title"
+						class="font-title text-purple underline"
 						href="https://www.linkedin.com/in/quentin-wegera/"
 						target="_blank"
 						rel="noreferrer"
@@ -71,7 +71,7 @@
 				<li>
 					Thomas MESNIER -
 					<a
-						class="underline text-purple font-title"
+						class="font-title text-purple underline"
 						href="https://www.linkedin.com/in/thomas-mesnier-28b37922b/"
 						target="_blank"
 						rel="noreferrer"
@@ -83,7 +83,7 @@
 		</div>
 
 		<div>
-			<h2 class="text-2xl font-text">Partenaires du projet</h2>
+			<h2 class="font-text text-2xl">Partenaires du projet</h2>
 			<ul>
 				<li>Université Bordeaux Montaigne</li>
 				<li>IUT Bordeaux Montaigne</li>
@@ -93,7 +93,7 @@
 		</div>
 
 		<div>
-			<h2 class="text-2xl font-text">Remerciements</h2>
+			<h2 class="font-text text-2xl">Remerciements</h2>
 			<p class="mb-2">Notre interlocutrice privilégiée : Olena Kryzhanovska</p>
 			<div>
 				<p>Nos intervenants :</p>
