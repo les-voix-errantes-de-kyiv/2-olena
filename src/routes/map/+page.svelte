@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import Loader from '$lib/components/Loader.svelte';
+	import ChevronDown from '$lib/components/icons/mini/chevron-down.svelte';
+	import ChevronLeft from '$lib/components/icons/mini/chevron-left.svelte';
+	import ChevronRight from '$lib/components/icons/mini/chevron-right.svelte';
+	import Eye from '$lib/components/icons/mini/eye.svelte';
 	import { MapScene, canNextWith, canPreviousWith, isStepIndexValid, steps } from '$lib/map/index';
 	import { onMount } from 'svelte';
-	import Loader from '$lib/components/Loader.svelte';
 
 	let mapScene: MapScene;
 	let canvas: HTMLCanvasElement;
@@ -14,6 +18,10 @@
 	$: if (mapScene && step) {
 		mapScene.lookAtStep(step);
 	}
+	$: nextStepIndex = stepIndex + 1;
+	$: isNextStep = isStepIndexValid(nextStepIndex);
+
+	let isStepOpen = false;
 
 	$: canPrevious = canPreviousWith(stepIndex);
 	$: canNext = canNextWith(stepIndex);
@@ -37,6 +45,14 @@
 		goto(url);
 	};
 
+	const openStep = (): void => {
+		isStepOpen = true;
+	};
+
+	const closeStep = (): void => {
+		isStepOpen = false;
+	};
+
 	const previousStep = (): void => {
 		if (!canPrevious) {
 			return;
@@ -49,6 +65,8 @@
 		if (!canNext) {
 			return;
 		}
+		closeStep();
+
 		stepIndex++;
 		setUrlForStep(stepIndex);
 	};
@@ -70,31 +88,105 @@
 	<canvas id="three" bind:this={canvas}></canvas>
 	<Loader {isLoading} {progress} />
 
-	<div class="fixed top-0 left-0 w-full py-4 bg-white text-blue">
+	<div
+		class="fixed left-0 top-0 w-full bg-white py-4 text-blue aria-hidden:hidden"
+		aria-hidden={isStepOpen}
+	>
 		<header class="container">
-			<h1 class="text-4xl font-title">Le périple</h1>
+			<h1 class="font-title text-4xl">Le périple</h1>
 		</header>
 	</div>
 
-	<div class="fixed top-0 left-0 w-full py-4 bg-white text-blue">
+	<div class="fixed left-0 top-0 w-full bg-white py-4 text-blue">
 		<header class="container">
-			<h1 class="text-4xl font-title">Le périple</h1>
+			<h1 class="font-title text-4xl">Le périple</h1>
 		</header>
 	</div>
 
 	{#if step}
-		<div class="fixed bottom-0 left-0 w-full py-2">
-			<nav class="container grid items-center justify-center grid-cols-2 gap-2 text-center">
+		<section class="fixed bottom-0 left-0 w-full bg-white">
+			<div class="container py-2">
+				<span class="col-span-2 flex h-12 items-center justify-center font-text text-purple">
+					<span>
+						{#if stepIndex === 0}
+							Départ
+						{:else if stepIndex === steps.length - 1}
+							Arrivée
+						{:else}
+							Étape {stepIndex}
+						{/if}
+						: {step.city}, {step.country}
+					</span>
+				</span>
+				<nav class="flex items-center justify-center gap-2 text-center">
+					<button
+						disabled={!canPrevious}
+						class="btn-secondary w-12 flex-none"
+						on:click={() => previousStep()}
+					>
+						<ChevronLeft />
+					</button>
+					<button class="btn-primary col-span-2" on:click={() => openStep()}>
+						<span>Voir</span>
+						<Eye />
+					</button>
+					<button
+						disabled={!canNext}
+						class="btn-secondary w-12 flex-none"
+						on:click={() => nextStep()}
+					>
+						<ChevronRight />
+					</button>
+				</nav>
+			</div>
+		</section>
 
-				<button disabled={!canPrevious} class="btn-secondary" on:click={previousStep}
-					>Précédent</button
-				>
-				<button disabled={!canNext} class="btn-secondary" on:click={nextStep}> Suivant </button>
+		{#if isStepOpen}
+			<div class="fixed left-0 top-0 h-screen w-full overflow-auto bg-white">
+				<main class="container relative py-2">
+					<nav class="mb-4">
+						<button class="btn-text" on:click={() => closeStep()}>
+							<span>Fermer</span>
+							<ChevronDown />
+						</button>
+					</nav>
 
-				<a class="btn-primary col-span-2" href={`/map/step/${stepIndex}`}>
-					Voir "{step.title}"
-				</a>
-			</nav>
-		</div>
+					<h1 class="mb-2 font-title text-4xl text-blue">
+						{#if stepIndex === 0}
+							Départ
+						{:else if stepIndex === steps.length - 1}
+							Arrivée
+						{:else}
+							Étape {stepIndex}
+						{/if}
+					</h1>
+					<h2 class="mb-4 font-text text-2xl text-blue">
+						{step.city}, {step.country}
+					</h2>
+
+					<div class="mb-4 space-y-2 text-blue">
+						{#each step.lines as line}
+							<p>{line}</p>
+						{/each}
+					</div>
+
+					{#if isNextStep}
+						<button class="btn-primary" on:click={() => nextStep()}>
+							Étape suivante : {steps[nextStepIndex].city}
+						</button>
+					{:else}
+						<button
+							on:click={() => {
+								localStorage.setItem('isXPFinished', 'true');
+								goto('/rooms');
+							}}
+							class="btn-primary"
+						>
+							Retour à la maison
+						</button>
+					{/if}
+				</main>
+			</div>
+		{/if}
 	{/if}
 </main>
