@@ -1,7 +1,7 @@
-import { enableShadows } from '$lib/utils/gltf';
 import gsap from 'gsap';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { steps, type Position, type Step } from './steps';
 
@@ -36,6 +36,10 @@ export class MapScene {
 		this.canvas = canvas;
 
 		this.gltfLoader = new GLTFLoader();
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath('/draco/');
+		dracoLoader.preload();
+		this.gltfLoader.setDRACOLoader(dracoLoader);
 
 		this.scene = new THREE.Scene();
 
@@ -85,12 +89,11 @@ export class MapScene {
 		this.controls.maxPolarAngle = Math.PI / 2 - 0.2;
 		onProgress(60);
 
-		this.renderer.setClearColor('#DDDDDD');
+		this.renderer.setClearColor('#FFFFFF');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		onProgress(80);
 
-		this.renderer.shadowMap.enabled = true;
 		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 		await this.setupObjects();
@@ -100,9 +103,7 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		this.map = enableShadows(
-			(await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.gltf')).scene
-		);
+		this.map = (await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.glb')).scene;
 		this.scene.add(this.map);
 
 		this.trajectsObjects = new Map();
@@ -130,14 +131,12 @@ export class MapScene {
 	}
 
 	private addSpotLight(x: number, y: number, z: number) {
-		const spotLight = new THREE.SpotLight(0xffffff, 100);
+		const spotLight = new THREE.SpotLight(0xffffff, 80);
 		this.scene.add(spotLight);
 		this.scene.add(spotLight.target);
 
 		spotLight.position.set(x, y, z);
 		spotLight.target.position.set(x, 0, z);
-
-		spotLight.castShadow = true;
 
 		spotLight.shadow.mapSize.width = 1024;
 		spotLight.shadow.mapSize.height = 1024;
