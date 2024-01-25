@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 export type RoomSceneMapObject = THREE.Group<THREE.Object3DEventMap>;
 
@@ -94,6 +95,12 @@ export class RoomScene {
 	}
 
 	private async setupObjects() {
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath('/draco/');
+		dracoLoader.preload();
+
+		this.gltfLoader.setDRACOLoader(dracoLoader);
+
 		const ambientLight = new THREE.AmbientLight('#ffffff', 0.01);
 
 		const sunLight = new THREE.DirectionalLight('#FFC371', 1.5);
@@ -118,10 +125,38 @@ export class RoomScene {
 		this.groupAfterRoom.add(ambientLightAfter, sunLightAfter);
 		this.scene.add(this.groupAfterRoom);
 
-		this.room = (await this.gltfLoader.loadAsync('/assets/gltf/room/piecev1.gltf')).scene;
-		this.room.scale.set(2, 2, 2);
+		// this.room = (await this.gltfLoader.loadAsync('/assets/gltf/room/piece.gltf')).scene;
+		// this.room.scale.set(2, 2, 2);
 
-		this.scene.add(this.room);
+		this.gltfLoader.load(
+			// resource URL
+			'/assets/room.glb',
+			// called when the resource is loaded
+
+			(gltf) => {
+				const scene = gltf.scene;
+				scene.traverse((child) => {
+					if ((child as THREE.Mesh).isMesh) {
+						const mesh = child as THREE.Mesh;
+						mesh.material = new THREE.MeshStandardMaterial({ color: '#ffffff' });
+					}
+				});
+
+				this.scene.add(scene);
+				scene.scale.set(2, 2, 2);
+				scene.children[0].visible = false;
+				// console.log('enfant', this.scene.children[1]);
+			},
+
+			// called as loading progresses
+			function (xhr) {
+				console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+			},
+			// called when loading has errors
+			function (error) {
+				console.log('An error happened :', error);
+			}
+		);
 	}
 
 	private animate() {
@@ -149,10 +184,11 @@ export class RoomScene {
 			return;
 		}
 
-		// this.isShowingBefore = true;
+		// this.groupBeforeRoom.visible = true;
+		// this.groupAfterRoom.visible = false;
 
-		this.groupBeforeRoom.visible = true;
-		this.groupAfterRoom.visible = false;
+		this.scene.children[3].children[0].visible = true;
+		this.scene.children[3].children[1].visible = false;
 	}
 
 	showAfterRoom = () => {
@@ -160,7 +196,14 @@ export class RoomScene {
 			return;
 		}
 
-		this.groupBeforeRoom.visible = false;
-		this.groupAfterRoom.visible = true;
+		if (!this.scene.children[3].children[0].visible) {
+			return;
+		}
+
+		// this.groupBeforeRoom.visible = false;
+		// this.groupAfterRoom.visible = true;
+
+		this.scene.children[3].children[0].visible = false;
+		this.scene.children[3].children[1].visible = true;
 	};
 }
