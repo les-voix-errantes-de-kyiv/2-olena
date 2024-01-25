@@ -103,7 +103,7 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		this.map = (await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.glb')).scene;
+		this.map = (await this.gltfLoader.loadAsync('/assets/models/map.glb')).scene;
 		this.scene.add(this.map);
 
 		this.trajectsObjects = new Map();
@@ -265,14 +265,5 @@ export class MapScene {
 				return;
 			}
 		}
-	}
-
-	addHelpers() {
-		const axesHelper = new THREE.AxesHelper(10);
-		this.scene.add(axesHelper);
-
-		const gridCases = 22;
-		const gridHelper = new THREE.GridHelper(gridCases, gridCases);
-		this.scene.add(gridHelper);
 	}
 }
