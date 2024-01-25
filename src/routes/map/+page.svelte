@@ -142,8 +142,8 @@
 		</section>
 
 		{#if isStepOpen}
-			<div class="fixed left-0 top-0 h-screen w-full overflow-auto bg-white">
-				<main class="container relative py-2">
+			<div class="fixed left-0 top-0 h-full w-full overflow-auto bg-white">
+				<section class="container relative py-2">
 					<nav class="mb-4">
 						<button class="btn-text" on:click={() => closeStep()}>
 							<span>Fermer</span>
@@ -185,7 +185,7 @@
 							Retour à la maison
 						</button>
 					{/if}
-				</main>
+				</section>
 			</div>
 		{/if}
 	{/if}
