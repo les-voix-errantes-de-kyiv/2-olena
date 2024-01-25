@@ -4,23 +4,33 @@
 
 @layer components {
 	.btn-primary {
-		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center text-white font-title bg-purple md:w-fit md:px-12;
+		@apply flex h-12 w-full items-center justify-center gap-2 bg-purple p-2 text-center font-title text-white;
 	}
 	.btn-primary:hover:not(:disabled) {
 		@apply bg-purple-dark;
 	}
 	.btn-primary:disabled {
-		@apply bg-gray border-gray;
+		@apply border-gray bg-gray;
 	}
 
 	.btn-secondary {
-		@apply flex items-center justify-center w-full gap-4 py-3 font-bold text-center bg-white border-2 text-purple font-title md:w-fit md:px-12 border-purple;
+		@apply flex h-12 w-full items-center justify-center gap-2 border-2 border-purple bg-white p-2 text-center font-title text-purple;
 	}
 	.btn-secondary:hover:not(:disabled) {
 		@apply bg-purple text-white;
 	}
 	.btn-secondary:disabled {
 		@apply border-gray text-gray;
+	}
+
+	.btn-text {
+		@apply flex items-center justify-center gap-1 p-1 text-center font-title text-purple;
+	}
+	.btn-text:hover:not(:disabled) {
+		@apply text-purple-dark;
+	}
+	.btn-text:disabled {
+		@apply text-gray;
 	}
 }
 
