@@ -3,12 +3,15 @@
 	import Eye from '$lib/components/icons/mini/eye.svelte';
 	import { RoomScene } from '$lib/rooms/index';
 	import { onMount } from 'svelte';
+	import Loader from '$lib/components/Loader.svelte';
 
 	let canvas: HTMLCanvasElement;
 	let roomScene: RoomScene;
 
 	const isXPFinished = localStorage.getItem('isXPFinished') === 'true';
 	let isShowingBefore = false;
+	let isLoading = false;
+	let progress = 0;
 
 	const showAfterRoom = () => {
 		isShowingBefore = false;
@@ -21,7 +24,11 @@
 
 	onMount(async () => {
 		roomScene = new RoomScene({ canvas });
-		await roomScene.init();
+		isLoading = true;
+		await roomScene.init((currentProgress) => {
+			progress = currentProgress;
+		});
+		isLoading = false;
 
 		if (isXPFinished) {
 			showAfterRoom();
@@ -36,7 +43,7 @@
 		<h1 class="text-4xl font-title">Chez Olena</h1>
 	</header>
 
-	<section class="fixed left-0 bottom-0 w-full">
+	<section class="fixed bottom-0 left-0 w-full">
 		<div class="container flex flex-col justify-between w-full gap-2 py-2">
 			{#if isXPFinished}
 				<a class="btn-secondary" href="/map">
@@ -58,6 +65,8 @@
 			{/if}
 		</div>
 	</section>
+
+	<Loader {isLoading} {progress} />
 
 	<canvas id="three-before" bind:this={canvas}></canvas>
 </container>
