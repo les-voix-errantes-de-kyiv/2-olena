@@ -9,6 +9,8 @@ export type MapObject = THREE.Group<THREE.Object3DEventMap>;
 export type PinObject = THREE.Object3D<THREE.Object3DEventMap>;
 export type TrajectObjet = THREE.Object3D<THREE.Object3DEventMap>;
 
+export type OnProgressFn = (progress: number) => void;
+
 export type MapSceneParams = {
 	canvas: HTMLCanvasElement;
 };
@@ -75,36 +77,45 @@ export class MapScene {
 		this.pinsObjects = new Map();
 	}
 
-	async init(onProgress: (progress: number) => void) {
+	async init(onProgress: OnProgressFn) {
 		this.camera.position.x = 4;
 		this.camera.position.y = 4;
 		this.camera.position.z = 4;
-		onProgress(20);
 
 		this.controls.enableDamping = true;
 		this.controls.enableZoom = false;
 		this.controls.enablePan = false;
-		onProgress(40);
 		this.controls.minPolarAngle = 0.5;
 		this.controls.maxPolarAngle = Math.PI / 2 - 0.2;
-		onProgress(60);
 
 		this.renderer.setClearColor('#FFFFFF');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-		onProgress(80);
-
 		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+		onProgress(30);
 
-		await this.setupObjects();
+		await this.setupObjects((percentage: number) => {
+			const setupObjectsPercentage = (percentage * 60) / 100;
+			onProgress(30 + setupObjectsPercentage);
+		});
+		onProgress(90);
 
 		this.animate();
 		onProgress(100);
 	}
 
-	private async setupObjects() {
-		this.map = (await this.gltfLoader.loadAsync('/assets/models/map.glb')).scene;
+	private async setupObjects(onProgress: OnProgressFn) {
+		const mapLoadPercentage = 60;
+		this.map = (
+			await this.gltfLoader.loadAsync('/assets/models/map.glb', (event) => {
+				const { loaded, total } = event;
+				const advancementPercentage = (loaded * mapLoadPercentage) / total;
+
+				onProgress(advancementPercentage);
+			})
+		).scene;
 		this.scene.add(this.map);
+		onProgress(mapLoadPercentage);
 
 		this.trajectsObjects = new Map();
 		this.pinsObjects = new Map();
@@ -116,10 +127,12 @@ export class MapScene {
 
 			this.pinsObjects.set(step.targetName, this.getObjectByName(step.targetName));
 		});
+		onProgress(70);
 
 		this.addSpotLight(1.77, 8.4, 3.66);
 		this.addSpotLight(-2.25, 8.4, -2.76);
 		this.addSpotLight(-4.83, 8.4, 4.56);
+		onProgress(100);
 	}
 
 	private getObjectByName(targetName: string) {
