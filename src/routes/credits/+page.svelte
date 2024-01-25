@@ -98,11 +98,15 @@
 			<div>
 				<p>Nos intervenants :</p>
 				<ul>
-					<li>Boris Bernard</li>
-					<li>Gaëtan JESTIN</li>
-					<li>Gérard Zlotykamien</li>
-					<li>Oscar Motta</li>
-					<li>Yoann Bouquey</li>
+					<li>Boris BERNARD</li>
+					<li>
+						<a href="https://www.gaetanjestin.com/" target="_blank" rel="noreferrer"
+							>Gaëtan JESTIN</a
+						>
+					</li>
+					<li>Gérard ZLOTYKAMIEN</li>
+					<li>Oscar MOTTA</li>
+					<li>Yoann BOUQUEY</li>
 				</ul>
 			</div>
 		</div>
