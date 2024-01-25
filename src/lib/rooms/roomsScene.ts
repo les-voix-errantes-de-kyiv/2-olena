@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 export type RoomSceneMapObject = THREE.Group<THREE.Object3DEventMap>;
 
@@ -23,10 +24,13 @@ export class RoomScene {
 	readonly scene: THREE.Scene;
 	readonly renderer: THREE.WebGLRenderer;
 
-	private groupBeforeRoom?: THREE.Group<THREE.Object3DEventMap>;
-	private groupAfterRoom?: THREE.Group<THREE.Object3DEventMap>;
+	private beforeRoomLights?: THREE.Group<THREE.Object3DEventMap>;
+	private afterRoomLights?: THREE.Group<THREE.Object3DEventMap>;
 
 	private room?: RoomSceneMapObject;
+
+	private beforeRoom?: THREE.Object3D<THREE.Object3DEventMap>;
+	private afterRoom?: THREE.Object3D<THREE.Object3DEventMap>;
 
 	constructor({ canvas }: RoomSceneParams) {
 		this.canvas = canvas;
@@ -65,8 +69,8 @@ export class RoomScene {
 	}
 
 	async init(onProgress: (progress: number) => void) {
-		this.camera.position.set(0.75, 2, 0.75);
-		this.camera.lookAt(-3, 3, 0);
+		this.camera.position.set(1.15, 0.5, 1.15);
+		this.controls.target.set(0, 0.75, 0);
 
 		this.controls.minAzimuthAngle = -0.7;
 		onProgress(20);
@@ -80,26 +84,27 @@ export class RoomScene {
 		this.controls.enablePan = false;
 		onProgress(60);
 
-		this.renderer.setClearColor('#ffff00');
+		this.renderer.setClearColor('#010D1C');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		onProgress(80);
 
 		this.renderer.shadowMap.enabled = true;
 
-		await this.setupObjects();
+		await this.setupObjects(progress => onProgress(80 + progress * 0.2));
 		onProgress(100);
 
 		this.animate();
 	}
 
-	private async setupObjects() {
-		const ambientLight = new THREE.AmbientLight('#ffffff', 0.01);
+	private async setupObjects(onProgress: (progress: number) => void) {
+		const ambientLight = new THREE.AmbientLight('#ffffff', 0.7);
 
 		const sunLight = new THREE.DirectionalLight('#FFC371', 1.5);
 		sunLight.position.set(0.5, 2, -2.5);
 
 		const ambientLightAfter = new THREE.AmbientLight('#4C6561', 1);
+		
 
 		const sunLightAfter = new THREE.DirectionalLight('#B9C9CB', 2);
 		sunLightAfter.position.set(0.5, 2, -2.5);
@@ -110,18 +115,71 @@ export class RoomScene {
 		const candleLight = new THREE.PointLight(0xff9000, 0.2);
 		candleLight.position.set(0.05, 0.6, -0.32);
 
-		this.groupBeforeRoom = new THREE.Group();
-		this.groupBeforeRoom.add(ambientLight, sunLight, lampLight, candleLight);
-		this.scene.add(this.groupBeforeRoom);
+		const wallLeft = new THREE.BoxGeometry(5, 4, 0.02);
+		const wallRight = new THREE.BoxGeometry(0.02, 4, 5);
 
-		this.groupAfterRoom = new THREE.Group();
-		this.groupAfterRoom.add(ambientLightAfter, sunLightAfter);
-		this.scene.add(this.groupAfterRoom);
+		const material = new THREE.MeshStandardMaterial({ color: '#6B5F54' });
+		const meshRight = new THREE.Mesh(wallRight, material);
+		const meshLeft = new THREE.Mesh(wallLeft, material);
+		meshRight.position.set(2, 1, 0.5);
+		meshLeft.position.set(0.7, 1, 1.92);
+		this.scene.add(meshRight, meshLeft);
 
-		this.room = (await this.gltfLoader.loadAsync('/assets/gltf/room/piecev1.gltf')).scene;
-		this.room.scale.set(2, 2, 2);
+		onProgress(15);
+
+
+		//BACKGROUND
+
+		const image = new Image();
+		const texture = new THREE.Texture(image);
+		image.addEventListener('load', () => {
+			texture.needsUpdate = true;
+		});
+		image.src = '/assets/images/kyiv.jpg';
+
+		const backgroundAfter = new THREE.PlaneGeometry(7, 7);
+		const materialBackgroundAfter = new THREE.MeshStandardMaterial({ map: texture });
+		const meshBackgroundAfter = new THREE.Mesh(backgroundAfter, materialBackgroundAfter);
+		meshBackgroundAfter.position.set(0, 1, -3.9);
+		this.scene.add(meshBackgroundAfter);
+
+		const backgroundBefore = new THREE.PlaneGeometry(7, 7);
+		const materialBackgroundBefore = new THREE.MeshStandardMaterial({ color: '#05172E' });
+		const meshBackgroundBefore = new THREE.Mesh(backgroundBefore, materialBackgroundBefore);
+		meshBackgroundBefore.position.set(0, 1, -3.9);
+		this.scene.add(meshBackgroundBefore);
+
+		onProgress(40);
+
+
+		//GROUPS
+
+		this.beforeRoomLights = new THREE.Group();
+		this.beforeRoomLights.add(ambientLight, sunLight, lampLight, candleLight, meshBackgroundBefore);
+		this.scene.add(this.beforeRoomLights);
+
+		this.afterRoomLights = new THREE.Group();
+		this.afterRoomLights.add(ambientLightAfter, sunLightAfter, meshBackgroundAfter);
+		this.scene.add(this.afterRoomLights);
+
+		onProgress(50);
+
+
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath('/draco/');
+		dracoLoader.preload();
+		this.gltfLoader.setDRACOLoader(dracoLoader);
+
+		this.room = (await this.gltfLoader.loadAsync('/assets/room.glb')).scene;
+		onProgress(99);
+
+
+		this.beforeRoom = this.room.children[0];
+		this.afterRoom = this.room.children[1];
 
 		this.scene.add(this.room);
+
+		this.room.scale.set(2, 2, 2);
 	}
 
 	private animate() {
@@ -145,21 +203,24 @@ export class RoomScene {
 	}
 
 	showBeforeRoom() {
-		if (!this.groupBeforeRoom || !this.groupAfterRoom) {
+		if (!this.beforeRoomLights || !this.afterRoomLights || !this.beforeRoom || !this.afterRoom) {
 			return;
 		}
 
-		// this.isShowingBefore = true;
-		this.groupBeforeRoom.visible = true;
-		this.groupAfterRoom.visible = false;
+		this.beforeRoomLights.visible = true;
+		this.afterRoomLights.visible = false;
+		this.beforeRoom.visible = true;
+		this.afterRoom.visible = false;
 	}
 
 	showAfterRoom = () => {
-		if (!this.groupBeforeRoom || !this.groupAfterRoom) {
+		if (!this.beforeRoomLights || !this.afterRoomLights || !this.beforeRoom || !this.afterRoom) {
 			return;
 		}
 
-		this.groupBeforeRoom.visible = false;
-		this.groupAfterRoom.visible = true;
+		this.beforeRoomLights.visible = false;
+		this.afterRoomLights.visible = true;
+		this.beforeRoom.visible = false;
+		this.afterRoom.visible = true;
 	};
 }
