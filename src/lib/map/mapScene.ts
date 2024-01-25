@@ -1,7 +1,7 @@
-import { enableShadows } from '$lib/utils/gltf';
 import gsap from 'gsap';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { steps, type Position, type Step } from './steps';
 
@@ -100,9 +100,13 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		this.map = enableShadows(
-			(await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.gltf')).scene
-		);
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath('/draco/');
+		dracoLoader.preload();
+
+		this.gltfLoader.setDRACOLoader(dracoLoader);
+
+		this.map = (await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.glb')).scene;
 		this.scene.add(this.map);
 
 		this.trajectsObjects = new Map();
