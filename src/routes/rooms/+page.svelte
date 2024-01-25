@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 	import Eye from '$lib/components/icons/mini/eye.svelte';
-	import { RoomScene } from '$lib/rooms/index';
+	import { RoomScene } from '$lib/room/index';
 	import { onMount } from 'svelte';
 	import Loader from '$lib/components/Loader.svelte';
 
