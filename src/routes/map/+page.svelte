@@ -178,7 +178,7 @@
 						<button
 							on:click={() => {
 								localStorage.setItem('isXPFinished', 'true');
-								goto('/rooms');
+								goto('/room');
 							}}
 							class="btn-primary"
 						>

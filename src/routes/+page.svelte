@@ -15,7 +15,7 @@
 		</p>
 	</div>
 
-	<a class="btn-primary" href="/rooms"
+	<a class="btn-primary" href="/room"
 		>Commencer
 		<ArrowRight />
 	</a>
