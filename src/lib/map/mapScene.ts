@@ -36,6 +36,10 @@ export class MapScene {
 		this.canvas = canvas;
 
 		this.gltfLoader = new GLTFLoader();
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath('/draco/');
+		dracoLoader.preload();
+		this.gltfLoader.setDRACOLoader(dracoLoader);
 
 		this.scene = new THREE.Scene();
 
@@ -100,12 +104,6 @@ export class MapScene {
 	}
 
 	private async setupObjects() {
-		const dracoLoader = new DRACOLoader();
-		dracoLoader.setDecoderPath('/draco/');
-		dracoLoader.preload();
-
-		this.gltfLoader.setDRACOLoader(dracoLoader);
-
 		this.map = (await this.gltfLoader.loadAsync('/assets/gltf/map/EUROPE_MAP.glb')).scene;
 		this.scene.add(this.map);
 
