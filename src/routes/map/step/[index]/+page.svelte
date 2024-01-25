@@ -12,7 +12,8 @@
 </script>
 
 <main class="container relative flex flex-col py-8">
-	<nav class="flex items-center gap-1 mb-4 flex-nowrap font-title text-purple">
+
+	<nav class="mb-4 flex gap-1 flex-nowrap items-center font-title text-purple">
 		<a href="/" class="underline">Accueil</a>
 		<ChevronRight />
 		<a href="/map" class="underline">Le périple</a>
@@ -21,6 +22,7 @@
 	</nav>
 
 	<h1 class="mb-4 text-4xl text-blue font-title">{data.step.title}</h1>
+
 
 	<div class="mb-4 space-y-2 text-blue">
 		{#each data.step.lines as line}

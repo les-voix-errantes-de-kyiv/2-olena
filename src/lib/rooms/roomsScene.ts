@@ -150,7 +150,6 @@ export class RoomScene {
 		}
 
 		// this.isShowingBefore = true;
-
 		this.groupBeforeRoom.visible = true;
 		this.groupAfterRoom.visible = false;
 	}

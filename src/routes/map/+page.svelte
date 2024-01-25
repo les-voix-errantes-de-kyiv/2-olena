@@ -76,14 +76,22 @@
 		</header>
 	</div>
 
+	<div class="fixed top-0 left-0 w-full py-4 bg-white text-blue">
+		<header class="container">
+			<h1 class="text-4xl font-title">Le périple</h1>
+		</header>
+	</div>
+
 	{#if step}
 		<div class="fixed bottom-0 left-0 w-full py-2">
 			<nav class="container grid items-center justify-center grid-cols-2 gap-2 text-center">
+
 				<button disabled={!canPrevious} class="btn-secondary" on:click={previousStep}
 					>Précédent</button
 				>
 				<button disabled={!canNext} class="btn-secondary" on:click={nextStep}> Suivant </button>
-				<a class="col-span-2 btn-primary" href={`/map/step/${stepIndex}`}>
+
+				<a class="btn-primary col-span-2" href={`/map/step/${stepIndex}`}>
 					Voir "{step.title}"
 				</a>
 			</nav>
