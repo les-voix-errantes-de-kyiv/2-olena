@@ -7,6 +7,7 @@
 	let mapScene: MapScene;
 	let canvas: HTMLCanvasElement;
 	let isLoading = false;
+	let progress = 0;
 
 	let stepIndex = -1;
 	$: step = isStepIndexValid(stepIndex) ? steps[stepIndex] : null;
@@ -55,7 +56,10 @@
 	onMount(async () => {
 		mapScene = new MapScene({ canvas });
 		isLoading = true;
-		await mapScene.init();
+
+		await mapScene.init((currentProgress) => {
+			progress = currentProgress;
+		});
 		isLoading = false;
 
 		lookAtStepFromUrl();
@@ -64,7 +68,7 @@
 
 <main class="relative">
 	<canvas id="three" bind:this={canvas}></canvas>
-	<Loader {isLoading} />
+	<Loader {isLoading} {progress} />
 
 	{#if step}
 		<nav

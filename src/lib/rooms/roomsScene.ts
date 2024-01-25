@@ -64,23 +64,31 @@ export class RoomScene {
 		});
 	}
 
-	async init() {
+	async init(onProgress: (progress: number) => void) {
 		this.camera.position.set(0.75, 2, 0.75);
 		this.camera.lookAt(-3, 3, 0);
 
 		this.controls.minAzimuthAngle = -0.7;
+		onProgress(20);
+
 		this.controls.maxAzimuthAngle = 1.75;
 		this.controls.minPolarAngle = Math.PI / 4;
 		this.controls.maxPolarAngle = Math.PI / 2 - 0.4;
+		onProgress(40);
+
 		this.controls.enableZoom = false;
 		this.controls.enablePan = false;
+		onProgress(60);
 
 		this.renderer.setClearColor('#ffff00');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		onProgress(80);
+
 		this.renderer.shadowMap.enabled = true;
 
 		await this.setupObjects();
+		onProgress(100);
 
 		this.animate();
 	}
@@ -141,7 +149,7 @@ export class RoomScene {
 			return;
 		}
 
-		this.isShowingBefore = true;
+		// this.isShowingBefore = true;
 
 		this.groupBeforeRoom.visible = true;
 		this.groupAfterRoom.visible = false;

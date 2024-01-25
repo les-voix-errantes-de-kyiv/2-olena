@@ -11,6 +11,7 @@
 	const isXPFinished = localStorage.getItem('isXPFinished') === 'true';
 	let isShowingBefore = false;
 	let isLoading = false;
+	let progress = 0;
 
 	const showAfterRoom = () => {
 		isShowingBefore = false;
@@ -24,7 +25,9 @@
 	onMount(async () => {
 		roomScene = new RoomScene({ canvas });
 		isLoading = true;
-		await roomScene.init();
+		await roomScene.init((currentProgress) => {
+			progress = currentProgress;
+		});
 		isLoading = false;
 
 		if (isXPFinished) {
@@ -63,7 +66,7 @@
 		</div>
 	</section>
 
-	<Loader {isLoading} />
+	<Loader {isLoading} {progress} />
 
 	<canvas id="three-before" bind:this={canvas}></canvas>
 </container>

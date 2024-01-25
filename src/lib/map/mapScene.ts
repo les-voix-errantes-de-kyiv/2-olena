@@ -71,26 +71,32 @@ export class MapScene {
 		this.pinsObjects = new Map();
 	}
 
-	async init() {
+	async init(onProgress: (progress: number) => void) {
 		this.camera.position.x = 4;
 		this.camera.position.y = 4;
 		this.camera.position.z = 4;
+		onProgress(20);
 
 		this.controls.enableDamping = true;
 		this.controls.enableZoom = false;
 		this.controls.enablePan = false;
+		onProgress(40);
 		this.controls.minPolarAngle = 0.5;
 		this.controls.maxPolarAngle = Math.PI / 2 - 0.2;
+		onProgress(60);
 
 		this.renderer.setClearColor('#DDDDDD');
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		onProgress(80);
+
 		this.renderer.shadowMap.enabled = true;
 		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 		await this.setupObjects();
 
 		this.animate();
+		onProgress(100);
 	}
 
 	private async setupObjects() {
