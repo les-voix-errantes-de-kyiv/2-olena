@@ -2,9 +2,11 @@
 	import { goto } from '$app/navigation';
 	import { MapScene, canNextWith, canPreviousWith, isStepIndexValid, steps } from '$lib/map/index';
 	import { onMount } from 'svelte';
+	import Loader from '$lib/components/Loader.svelte';
 
 	let mapScene: MapScene;
 	let canvas: HTMLCanvasElement;
+	let isLoading = false;
 
 	let stepIndex = -1;
 	$: step = isStepIndexValid(stepIndex) ? steps[stepIndex] : null;
@@ -52,8 +54,9 @@
 
 	onMount(async () => {
 		mapScene = new MapScene({ canvas });
-
+		isLoading = true;
 		await mapScene.init();
+		isLoading = false;
 
 		lookAtStepFromUrl();
 	});
@@ -61,6 +64,7 @@
 
 <main class="relative">
 	<canvas id="three" bind:this={canvas}></canvas>
+	<Loader {isLoading} />
 
 	{#if step}
 		<nav
