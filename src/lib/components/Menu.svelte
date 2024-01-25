@@ -20,7 +20,7 @@
 			</a>
 
 			<a
-				href="/rooms"
+				href="/room"
 				on:click={() => (isMenuOpen = false)}
 				class="font-title text-4xl hover:underline"
 			>
