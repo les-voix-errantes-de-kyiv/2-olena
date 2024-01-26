@@ -7,7 +7,7 @@
 </script>
 
 <container class="">
-	<header class="absolute top-0 flex items-center w-full h-16 px-4 bg-white text-blue">
+	<header class="absolute top-0 flex items-center w-full h-16 px-2 bg-white text-blue">
 		<h1 class="text-4xl font-title">24 février 2022</h1>
 	</header>
 	<section class="container flex flex-col gap-4 mt-20 font-text text-blue">
@@ -25,7 +25,7 @@
 
 	<section class="fixed bottom-0 left-0 w-full">
 		<div class="container flex flex-col justify-between w-full gap-2 py-2">
-			<a class="btn-secondary" href="/map?step=0">
+			<a class="btn-primary" href="/map?step=0">
 				Fuir le pays <ArrowRight />
 			</a>
 		</div>
