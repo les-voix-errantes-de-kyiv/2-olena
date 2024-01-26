@@ -5,6 +5,7 @@
 	import { RoomScene } from '$lib/room/index';
 	import { onMount } from 'svelte';
 
+
 	let canvas: HTMLCanvasElement;
 	let roomScene: RoomScene;
 
