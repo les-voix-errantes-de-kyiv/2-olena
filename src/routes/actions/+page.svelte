@@ -7,10 +7,10 @@
 </script>
 
 <container class="">
-	<header class="absolute top-0 flex items-center w-full h-16 px-2 pt-6 bg-white text-blue">
+	<header class="flex items-center w-full h-20 px-2 pt-6 bg-white text-blue">
 		<h1 class="text-4xl font-title">Ce qu’on <br /> peut faire</h1>
 	</header>
-	<section class="container flex flex-col gap-4 mt-28 font-text text-blue">
+	<section class="container flex flex-col gap-4 mt-8 font-text text-blue">
 		<h2 class="text-2xl">Invasion de l’Ukraine par la Russie</h2>
 		<p>
 			Pour aider les personnes comme Olena et pour ouvrir la parole autour du conflit

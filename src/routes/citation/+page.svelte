@@ -7,7 +7,7 @@
 </script>
 
 <container class="">
-	<header class="absolute top-0 flex items-center w-full h-16 px-2 bg-white text-blue">
+	<header class="flex items-center w-full h-16 px-2 bg-white text-blue">
 		<h1 class="text-4xl font-title">24 février 2022</h1>
 	</header>
 	<section class="container flex flex-col gap-4 mt-20 font-text text-blue">
