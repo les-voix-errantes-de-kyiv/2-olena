@@ -5,7 +5,6 @@
 	import { RoomScene } from '$lib/room/index';
 	import { onMount } from 'svelte';
 
-
 	let canvas: HTMLCanvasElement;
 	let roomScene: RoomScene;
 
@@ -40,12 +39,12 @@
 </script>
 
 <container class="">
-	<header class="absolute top-0 flex h-16 w-full items-center bg-white px-4 text-blue">
-		<h1 class="font-title text-4xl">Chez Olena</h1>
+	<header class="absolute top-0 flex items-center w-full h-16 px-4 bg-white text-blue">
+		<h1 class="text-4xl font-title">Chez Olena</h1>
 	</header>
 
 	<section class="fixed bottom-0 left-0 w-full">
-		<div class="container flex w-full flex-col justify-between gap-2 py-2">
+		<div class="container flex flex-col justify-between w-full gap-2 py-2">
 			{#if isXPFinished}
 				<a class="btn-secondary" href="/map?step=6">
 					Revoir son périple <ArrowRight />
@@ -62,7 +61,7 @@
 					</button>
 				{/if}
 			{:else}
-				<a class="btn-primary" href="/map">Découvrir son périple <ArrowRight /> </a>
+				<a class="btn-primary" href="/citation">Continuer <ArrowRight /> </a>
 			{/if}
 		</div>
 	</section>
