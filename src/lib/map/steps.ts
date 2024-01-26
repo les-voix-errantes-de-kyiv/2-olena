@@ -15,7 +15,7 @@ export const steps: Array<Step> = [
 		country: 'Ukraine',
 		lines: [
 			'Trajet Dnipro - Vinnytsia : ',
-			'600 km en voiture pour se rendre au 1ᵉʳ arrêt de ce long voyage : Vinnytsia.'
+			'Olena n’a pas d’autres choix que de quitter son logement, son travail, son quotidien, bref, tout ce qu’elle connait. Et ce, sans savoir si elle allait, un jour, retrouver cette vie là. S’annoncent donc 600 km à parcourir en voiture avec ses deux enfants et son chien. 1er objectif de ce long voyage : Vinnytsia.'
 		]
 	},
 	{
@@ -71,7 +71,7 @@ export const steps: Array<Step> = [
 		targetName: 'bordeaux',
 		city: 'Bordeaux',
 		country: 'France',
-		lines: ['23h, 7 mars']
+		lines: ['23h, 7 mars', 'Olena et sa famille sont hébergés par leurs amis. Même si ses enfants bénéficient d’un certain confort médical et scolaire, la situation est difficile. Olena ne peut pas faire valider son diplôme. Exercer en tant que médecin est impossible.', 'Six mois après les avoir logés, les hôtes ont dû déménager. Olena s’est donc débrouillée seule. Elle a commencé une nouvelle vie en attendant de retrouver son ancienne. En espérant que tout soit comme auparavant...']
 	}
 ];
 
