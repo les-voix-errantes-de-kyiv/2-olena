@@ -25,7 +25,7 @@
 
 	<section class="fixed bottom-0 left-0 w-full">
 		<div class="container flex flex-col justify-between w-full gap-2 py-2">
-			<a class="btn-secondary" href="/map?step=0">
+			<a class="btn-primary" href="/map?step=0">
 				Fuir le pays <ArrowRight />
 			</a>
 		</div>
