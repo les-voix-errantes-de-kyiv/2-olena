@@ -46,20 +46,20 @@
 	<section class="fixed bottom-0 left-0 w-full">
 		<div class="container flex flex-col justify-between w-full gap-2 py-2">
 			{#if isXPFinished}
-				<a class="btn-secondary" href="/map?step=6">
-					Revoir son périple <ArrowRight />
-				</a>
 				{#if isShowingBefore}
-					<button class="btn-primary" on:click={() => showAfterRoom()}>
+					<button class="btn-secondary" on:click={() => showAfterRoom()}>
 						Voir après la guerre
 						<Eye />
 					</button>
 				{:else}
-					<button class="btn-primary" on:click={() => showBeforeRoom()}>
+					<button class="btn-secondary" on:click={() => showBeforeRoom()}>
 						Voir avant la guerre
 						<Eye />
 					</button>
 				{/if}
+				<a class="btn-primary" href="/map?step=6">
+					Continuer <ArrowRight />
+				</a>
 			{:else}
 				<a class="btn-primary" href="/citation">Continuer <ArrowRight /> </a>
 			{/if}
