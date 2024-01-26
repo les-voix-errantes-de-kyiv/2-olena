@@ -89,24 +89,24 @@
 	<Loader {isLoading} {progress} />
 
 	<div
-		class="fixed left-0 top-0 w-full bg-white py-4 text-blue aria-hidden:hidden"
+		class="fixed top-0 left-0 w-full py-4 bg-white text-blue aria-hidden:hidden"
 		aria-hidden={isStepOpen}
 	>
 		<header class="container">
-			<h1 class="font-title text-4xl">Le périple</h1>
+			<h1 class="text-4xl font-title">Le périple</h1>
 		</header>
 	</div>
 
-	<div class="fixed left-0 top-0 w-full bg-white py-4 text-blue">
+	<div class="fixed top-0 left-0 w-full py-4 bg-white text-blue">
 		<header class="container">
-			<h1 class="font-title text-4xl">Le périple</h1>
+			<h1 class="text-4xl font-title">Le périple</h1>
 		</header>
 	</div>
 
 	{#if step}
 		<section class="fixed bottom-0 left-0 w-full bg-white">
 			<div class="container py-2">
-				<span class="col-span-2 flex h-12 items-center justify-center font-text text-purple">
+				<span class="flex items-center justify-center h-12 col-span-2 font-text text-purple">
 					<span>
 						{#if stepIndex === 0}
 							Départ
@@ -121,18 +121,18 @@
 				<nav class="flex items-center justify-center gap-2 text-center">
 					<button
 						disabled={!canPrevious}
-						class="btn-secondary w-12 flex-none"
+						class="flex-none w-12 btn-secondary"
 						on:click={() => previousStep()}
 					>
 						<ChevronLeft />
 					</button>
-					<button class="btn-primary col-span-2" on:click={() => openStep()}>
+					<button class="col-span-2 btn-primary" on:click={() => openStep()}>
 						<span>Voir</span>
 						<Eye />
 					</button>
 					<button
 						disabled={!canNext}
-						class="btn-secondary w-12 flex-none"
+						class="flex-none w-12 btn-secondary"
 						on:click={() => nextStep()}
 					>
 						<ChevronRight />
@@ -142,7 +142,7 @@
 		</section>
 
 		{#if isStepOpen}
-			<div class="fixed left-0 top-0 h-full w-full overflow-auto bg-white">
+			<div class="fixed top-0 left-0 w-full h-full overflow-auto bg-white">
 				<section class="container relative py-2">
 					<nav class="mb-4">
 						<button class="btn-text" on:click={() => closeStep()}>
@@ -151,7 +151,7 @@
 						</button>
 					</nav>
 
-					<h1 class="mb-2 font-title text-4xl text-blue">
+					<h1 class="mb-2 text-4xl font-title text-blue">
 						{#if stepIndex === 0}
 							Départ
 						{:else if stepIndex === steps.length - 1}
@@ -160,7 +160,7 @@
 							Étape {stepIndex}
 						{/if}
 					</h1>
-					<h2 class="mb-4 font-text text-2xl text-blue">
+					<h2 class="mb-4 text-2xl font-text text-blue">
 						{step.city}, {step.country}
 					</h2>
 
@@ -182,7 +182,7 @@
 							}}
 							class="btn-primary"
 						>
-							Voir la maison actuellement
+							Retourner en Ukraine
 						</button>
 					{/if}
 				</section>
