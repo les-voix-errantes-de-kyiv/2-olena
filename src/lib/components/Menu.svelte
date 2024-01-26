@@ -9,20 +9,20 @@
 {#if isMenuOpen}
 	<button
 		on:click={() => (isMenuOpen = false)}
-		class="fixed right-2 top-4 z-20 rounded-full border border-white p-2 text-white hover:bg-white hover:text-purple"
+		class="fixed z-20 p-2 text-white border border-white rounded-full right-2 top-4 hover:bg-white hover:text-purple"
 	>
 		<IconX />
 	</button>
-	<div class="fixed left-0 top-0 z-10 h-screen w-full bg-purple">
-		<nav class="container flex h-full flex-col items-center justify-center gap-4 text-white">
-			<a href="/" on:click={() => (isMenuOpen = false)} class="font-title text-4xl hover:underline">
+	<div class="fixed top-0 left-0 z-10 w-full h-screen bg-purple">
+		<nav class="container flex flex-col items-center justify-center h-full gap-4 text-white">
+			<a href="/" on:click={() => (isMenuOpen = false)} class="text-4xl font-title hover:underline">
 				Accueil
 			</a>
 
 			<a
 				href="/room"
 				on:click={() => (isMenuOpen = false)}
-				class="font-title text-4xl hover:underline"
+				class="text-4xl font-title hover:underline"
 			>
 				Chez Olena
 			</a>
@@ -31,7 +31,7 @@
 				<a
 					href="/map"
 					on:click={() => (isMenuOpen = false)}
-					class="font-title text-4xl hover:underline"
+					class="text-4xl font-title hover:underline"
 				>
 					Son périple
 				</a>
@@ -43,7 +43,7 @@
 							isMenuOpen = false;
 							window.location.href = `/map?step=${index}`;
 						}}
-						class="-mb-2 mt-2 font-text text-2xl hover:underline"
+						class="mt-2 -mb-2 text-2xl font-text hover:underline"
 					>
 						{step.city}
 					</a>
@@ -53,7 +53,7 @@
 			<a
 				href="/credits"
 				on:click={() => (isMenuOpen = false)}
-				class="font-title text-4xl hover:underline"
+				class="text-4xl font-title hover:underline"
 			>
 				Crédits
 			</a>
@@ -62,7 +62,7 @@
 {:else}
 	<button
 		on:click={() => (isMenuOpen = true)}
-		class="fixed right-2 top-4 z-20 rounded-full border border-purple bg-white p-2 text-purple hover:bg-purple hover:text-white"
+		class="fixed z-50 p-2 bg-white border rounded-full right-2 top-4 border-purple text-purple hover:bg-purple hover:text-white"
 	>
 		<IconBar3 />
 	</button>

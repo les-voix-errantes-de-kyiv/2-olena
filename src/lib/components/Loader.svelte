@@ -4,14 +4,13 @@
 </script>
 
 {#if isLoading === true}
-	<div class="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-white">
-		<div class="flex flex-col items-center justify-center font-text text-xl text-blue">
+	<div class="absolute inset-0 z-40 flex items-center justify-center w-full h-full bg-white">
+		<div class="flex flex-col items-center justify-center text-xl font-text text-blue">
 			<h2 class="">Chargement ...</h2>
-			{progress}
 			{#if progress}
 				<p>{Math.round(progress)}%</p>
 			{/if}
-			<div class="relative mt-1 h-8 w-8 animate-spin rounded-full border-4 border-purple">
+			<div class="relative w-8 h-8 mt-1 border-4 rounded-full animate-spin border-purple">
 				<div
 					class="absolute left-[50%] top-[50%] z-50 h-1 w-5 rounded-full border-4 border-white"
 				></div>
