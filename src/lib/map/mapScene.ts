@@ -109,8 +109,12 @@ export class MapScene {
 		this.map = (
 			await this.gltfLoader.loadAsync('/assets/models/map.glb', (event) => {
 				const { loaded, total } = event;
-				const advancementPercentage = (loaded * mapLoadPercentage) / total;
 
+				if (total === 0) {
+					return;
+				}
+
+				const advancementPercentage = (loaded * mapLoadPercentage) / total;
 				onProgress(advancementPercentage);
 			})
 		).scene;
