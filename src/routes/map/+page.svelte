@@ -182,7 +182,7 @@
 							}}
 							class="btn-primary"
 						>
-							Retour à la maison
+							Voir la maison actuellement
 						</button>
 					{/if}
 				</section>

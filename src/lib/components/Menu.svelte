@@ -33,7 +33,7 @@
 					on:click={() => (isMenuOpen = false)}
 					class="font-title text-4xl hover:underline"
 				>
-					Le périple
+					Son périple
 				</a>
 
 				{#each steps as step, index}

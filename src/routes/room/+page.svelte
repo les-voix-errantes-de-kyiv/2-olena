@@ -1,9 +1,10 @@
 <script lang="ts">
+	import Loader from '$lib/components/Loader.svelte';
 	import ArrowRight from '$lib/components/icons/mini/arrow-right.svelte';
 	import Eye from '$lib/components/icons/mini/eye.svelte';
 	import { RoomScene } from '$lib/room/index';
 	import { onMount } from 'svelte';
-	import Loader from '$lib/components/Loader.svelte';
+
 
 	let canvas: HTMLCanvasElement;
 	let roomScene: RoomScene;
@@ -46,22 +47,22 @@
 	<section class="fixed bottom-0 left-0 w-full">
 		<div class="container flex w-full flex-col justify-between gap-2 py-2">
 			{#if isXPFinished}
-				<a class="btn-secondary" href="/map">
-					Retourner au périple <ArrowRight />
+				<a class="btn-secondary" href="/map?step=6">
+					Revoir son périple <ArrowRight />
 				</a>
 				{#if isShowingBefore}
 					<button class="btn-primary" on:click={() => showAfterRoom()}>
-						Voir après
+						Voir après la guerre
 						<Eye />
 					</button>
 				{:else}
 					<button class="btn-primary" on:click={() => showBeforeRoom()}>
-						Voir avant
+						Voir avant la guerre
 						<Eye />
 					</button>
 				{/if}
 			{:else}
-				<a class="btn-primary" href="/map">Commencer le périple <ArrowRight /> </a>
+				<a class="btn-primary" href="/map">Découvrir son périple <ArrowRight /> </a>
 			{/if}
 		</div>
 	</section>
