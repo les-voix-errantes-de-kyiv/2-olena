@@ -47,7 +47,7 @@ export const steps: Array<Step> = [
 		position: { x: 6, y: 0, z: -2 },
 		targetName: 'budapest',
 		city: 'Budapest',
-		country: 'Hongri',
+		country: 'Hongrie',
 		lines: [
 			'Budapest a été la 3ᵉ ville où ils se sont arrêtés et la 1ʳᵉ à l’étranger.',
 			'La personne qui les logeait leur a proposé de rester un peu plus pour se reposer, pour réfléchir. Mais elle a refusé, elle était très inquiète parce que le temps passait très vite et elle ne pouvait pas s’arrêter dans son trajet.',
